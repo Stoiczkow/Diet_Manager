@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^register/$', RegisterUserView.as_view()),
     url(r'^login/$', LoginView.as_view()),
+    url(r'^index/$', MainPageView.as_view(), name='index'),
 ]
