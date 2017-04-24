@@ -2,14 +2,17 @@ from django.shortcuts import render
 from django.views import View
 from django.views.generic.edit import CreateView
 from django.contrib.auth.models import User
-from .forms import LoginForm
+from .forms import *
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 # Create your views here.
 
 class RegisterUserView(View):
-    pass
+    def get(self, request):
+        form = LoginForm()
+        ctx = {'form': form}
+        return render(request, 'manager/register.html', ctx)
 
 
 class LoginView(View):
