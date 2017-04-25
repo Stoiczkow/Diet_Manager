@@ -19,7 +19,8 @@ from manager.views import *
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^register/$', RegisterUserView.as_view()),
-    url(r'^login/$', LoginView.as_view()),
+    url(r'^register/$', RegisterUserView.as_view(), name='register'),
+    url(r'^login/$', LoginView.as_view(), name='login'),
+    url(r'^logout/$', LogoutView.as_view(), name='logout'),
     url(r'^index/$', MainPageView.as_view(), name='index'),
 ]
