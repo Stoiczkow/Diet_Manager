@@ -9,7 +9,7 @@
         <meta charset="utf-8">
     </head>
     <body background="{% static 'img/wood.jpg' %}">
-        <nav class="navbar navbar-inverse">
+        <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container-fluid">
                 <div class="navbar-header">
                   <a class="navbar-brand" href="#">Diet Manager</a>
@@ -38,7 +38,7 @@
                 {% endif %}
             </div>
         </nav>
-        <div class="container">
+        <div class="container" style="margin-top:60px">
             {% block content%}
             {% endblock %}
         </div>
