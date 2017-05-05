@@ -15,6 +15,12 @@ MEAL_NAME = (
 class Category(models.Model):
     name = models.CharField(max_length=128)
 
+    @property
+    def category_name(self):
+        return "{}".format(self.name)
+
+    def __str__(self):
+        return self.category_name
 
 class Product(models.Model):
     name = models.CharField(max_length=128)

@@ -73,3 +73,8 @@ class AddProductView(LoginRequiredMixin, CreateView):
 class AddCategoryView(LoginRequiredMixin, CreateView):
     model = Category
     fields = '__all__'
+
+    def get_form(self):
+        form = super(AddCategoryView, self).get_form()
+        form.fields['name'].widget = forms.TextInput(attrs={'class':'form-control', 'placeholder':'Category name'})
+        return form
