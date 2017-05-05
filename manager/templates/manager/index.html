@@ -17,8 +17,8 @@
                 <ul class="nav navbar-nav">
                   <li class="active"><a href="{% url 'index' %}">Home</a></li>
                   <li><a href="{% url 'add_meal' %}">Add Meal</a></li>
-                  <li><a href="#">Page 2</a></li>
-                  <li><a href="#">Page 3</a></li>
+                  <li><a href="{% url 'add_product' %}">Add Product</a></li>
+                  <li><a href="{% url 'add_category' %}">Add Category</a></li>
                 </ul>
                 {% if request.user.is_authenticated %}
                     <ul class="nav navbar-nav navbar-right">

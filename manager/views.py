@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic.edit import CreateView
-from .models import Meal
+from .models import Meal, Product, Category
 from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 
@@ -60,4 +60,14 @@ class MainPageView(LoginRequiredMixin, View):
 
 class AddMealView(LoginRequiredMixin, CreateView):
     model = Meal
+    fields = '__all__'
+
+
+class AddProductView(LoginRequiredMixin, CreateView):
+    model = Product
+    fields = '__all__'
+
+
+class AddCategoryView(LoginRequiredMixin, CreateView):
+    model = Category
     fields = '__all__'
