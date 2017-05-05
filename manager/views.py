@@ -8,6 +8,8 @@ from django.urls import reverse
 from django.views.generic.edit import CreateView
 from .models import Meal, Product, Category
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django import forms
+
 # Create your views here.
 
 
