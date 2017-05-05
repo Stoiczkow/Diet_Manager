@@ -6,12 +6,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic.edit import CreateView
-from .models import Meal, Product, Category
+from .models import Meal, Product, Category, MEAL_NAME
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django import forms
 
 # Create your views here.
-
 
 class RegisterUserView(View):
     def get(self, request):
@@ -60,9 +59,18 @@ class MainPageView(LoginRequiredMixin, View):
         ctx = {'success': "Super!"}
         return render(request, 'manager/index.html', ctx)
 
+
 class AddMealView(LoginRequiredMixin, CreateView):
     model = Meal
     fields = '__all__'
+
+    initial = {'user': 3}
+    def get_form(self):
+        form = super(AddMealView, self).get_form()
+        form.fields['meal_date'].widget = forms.DateInput(attrs={'class':'form-control', 'type':'date', 'placeholder':'Meal date'})
+        form.fields['name'].widget = forms.Select(attrs={'class': 'form-control'}, choices=MEAL_NAME)
+        form.fields['product'].widget = forms.SelectMultiple(attrs={'class': 'form-control'})
+        return form
 
 
 class AddProductView(LoginRequiredMixin, CreateView):

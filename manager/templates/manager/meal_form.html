@@ -5,12 +5,19 @@
 <center><form method="POST">
     {{ error }}
     {% csrf_token %}
-    {{ form }}
-    <input type="submit" class="btn btn-default" value="Add">
+    <div class="input-group col-sm-6">
+        {{ form.name }}
+    </div>
+    <div class="input-group col-sm-6">
+        {{ form.product }}
+    </div>
+    <div class="input-group col-sm-6">
+        {{ form.meal_date }}
+    </div>
+    <div class="input-group col-sm-6">
+        {{ form.user }}
+    </div>
+    <button type="submit" class="btn btn-default ">Add meal</button>
 </form></center>
 
-{{ form.name }}
-{{ form.product }}
-{{ form.meal_date }}
-{{ form.user }}
 {% endblock %}
