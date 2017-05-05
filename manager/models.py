@@ -29,9 +29,15 @@ class Product(models.Model):
     calories = models.FloatField()
     category = models.ManyToManyField(Category)
 
+    @property
+    def product_name(self):
+        return "{}".format(self.name)
+
+    def __str__(self):
+        return self.product_name
 
 class Meal(models.Model):
     name = models.IntegerField(choices=MEAL_NAME)
     product = models.ManyToManyField(Product)
     meal_date = models.DateField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True)

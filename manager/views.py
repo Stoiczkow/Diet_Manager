@@ -11,6 +11,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django import forms
 
 # Create your views here.
+category_choices = Category.objects.all().values_list('id', 'name')
+product_choices = Product.objects.all().values_list('id', 'name')
 
 class RegisterUserView(View):
     def get(self, request):
@@ -62,15 +64,19 @@ class MainPageView(LoginRequiredMixin, View):
 
 class AddMealView(LoginRequiredMixin, CreateView):
     model = Meal
-    fields = '__all__'
-
-    initial = {'user': 3}
+    fields = ['name', 'meal_date', 'product']
+    # initial = {'user': 3}
     def get_form(self):
         form = super(AddMealView, self).get_form()
         form.fields['meal_date'].widget = forms.DateInput(attrs={'class':'form-control', 'type':'date', 'placeholder':'Meal date'})
         form.fields['name'].widget = forms.Select(attrs={'class': 'form-control'}, choices=MEAL_NAME)
-        form.fields['product'].widget = forms.SelectMultiple(attrs={'class': 'form-control'})
+        form.fields['product'].widget = forms.SelectMultiple(attrs={'class': 'form-control'}, choices=product_choices)
         return form
+
+    # auto-set logged user to the form
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        return super(AddMealView, self).form_valid(form)
 
 
 class AddProductView(LoginRequiredMixin, CreateView):
@@ -81,8 +87,8 @@ class AddProductView(LoginRequiredMixin, CreateView):
         form = super(AddProductView, self).get_form()
         form.fields['name'].widget = forms.TextInput(attrs={'class':'form-control', 'placeholder':'Product'})
         form.fields['description'].widget = forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Description of a product'})
-        form.fields['calories'].widget = forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Calories'})
-        form.fields['category'].widget = forms.SelectMultiple(attrs={'class': 'form-control'})
+        form.fields['calories'].widget = forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Calories in 100g/100ml'})
+        form.fields['category'].widget = forms.SelectMultiple(attrs={'class': 'form-control'}, choices=category_choices)
         return form
 
 
