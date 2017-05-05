@@ -16,9 +16,30 @@
                 </div>
                 <ul class="nav navbar-nav">
                   <li class="active"><a href="{% url 'index' %}">Home</a></li>
-                  <li><a href="{% url 'add_meal' %}">Add Meal</a></li>
-                  <li><a href="{% url 'add_product' %}">Add Product</a></li>
-                  <li><a href="{% url 'add_category' %}">Add Category</a></li>
+
+                  <li class="dropdown">
+                      <a class="dropdown-toggle" data-toggle="dropdown" href="#">Meals
+                          <span class="caret"></span></a>
+                          <ul class="dropdown-menu">
+                            <li><a href="{% url 'add_meal' %}">Add meal</a></li>
+                          </ul>
+                  </li>
+
+                  <li class="dropdown">
+                      <a class="dropdown-toggle" data-toggle="dropdown" href="#">Products
+                          <span class="caret"></span></a>
+                          <ul class="dropdown-menu">
+                            <li><a href="{% url 'add_product' %}">Add product</a></li>
+                          </ul>
+                  </li>
+
+                  <li class="dropdown">
+                      <a class="dropdown-toggle" data-toggle="dropdown" href="#">Categories
+                          <span class="caret"></span></a>
+                          <ul class="dropdown-menu">
+                            <li><a href="{% url 'add_category' %}">Add category</a></li>
+                          </ul>
+                  </li>
                 </ul>
                 {% if request.user.is_authenticated %}
                     <ul class="nav navbar-nav navbar-right">

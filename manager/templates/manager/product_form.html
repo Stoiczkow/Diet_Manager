@@ -5,8 +5,19 @@
 <center><form method="POST">
     {{ error }}
     {% csrf_token %}
-    {{ form }}
-    <input type="submit" class="btn btn-default" value="Add">
+    <p><div class="input-group col-sm-6">
+        {{ form.name }}
+    </div></p>
+    <p><div class="input-group col-sm-6">
+        {{ form.description }}
+    </div></p>
+    <p><div class="input-group col-sm-6">
+        {{ form.calories }}
+    </div></p>
+    <p><div class="input-group col-sm-6">
+        {{ form.category }}
+    </div></p>
+    <button type="submit" class="btn btn-default ">Add product</button>
 </form></center>
 
 {% endblock %}
