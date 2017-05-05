@@ -5,6 +5,9 @@ from .forms import *
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.views.generic.edit import CreateView
+from .models import Meal
+from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 
 
@@ -46,7 +49,7 @@ class LogoutView(View):
         return HttpResponseRedirect(reverse('login'))
 
 
-class MainPageView(View):
+class MainPageView(LoginRequiredMixin, View):
     def get(self, request):
         ctx = {'success': "Super!"}
         return render(request, 'manager/index.html', ctx)
@@ -54,3 +57,7 @@ class MainPageView(View):
     def post(self, request):
         ctx = {'success': "Super!"}
         return render(request, 'manager/index.html', ctx)
+
+class AddMealView(LoginRequiredMixin, CreateView):
+    model = Meal
+    fields = '__all__'

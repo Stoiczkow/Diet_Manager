@@ -23,4 +23,5 @@ urlpatterns = [
     url(r'^login/$', LoginView.as_view(), name='login'),
     url(r'^logout/$', LogoutView.as_view(), name='logout'),
     url(r'^index/$', MainPageView.as_view(), name='index'),
+    url(r'^add_meal/$', AddMealView.as_view(), name='add_meal'),
 ]
