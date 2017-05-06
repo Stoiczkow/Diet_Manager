@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'diet_manager.wsgi.application'
 DATABASES = {
     'default': {
         'HOST': '127.0.0.1',
-        'NAME': 'diet_manager_4',
+        'NAME': 'diet_manager_db',
         'ENGINE': 'mysql.connector.django',
         'USER': 'root',
         'PASSWORD': 'coderslab',
