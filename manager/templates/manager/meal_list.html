@@ -5,7 +5,7 @@
 <div class="container  col-sm-6">
     <div class="list-group">
         {% for meal in object_list %}
-        <a href="#" class="list-group-item">{{ meal.name }}  <span class="badge">{{ meal.meal_date }}</span></a>
+        <a href="#" class="list-group-item">{{ meal }}  <span class="badge">{{ meal.meal_date }}</span></a>
         {% endfor %}
     </div>
 </div>

@@ -41,3 +41,11 @@ class Meal(models.Model):
     product = models.ManyToManyField(Product)
     meal_date = models.DateField()
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+
+    @property
+    def meal_name(self):
+        meal_name_dict = dict(MEAL_NAME)
+        return "{}".format(meal_name_dict[self.name])
+
+    def __str__(self):
+        return self.meal_name
