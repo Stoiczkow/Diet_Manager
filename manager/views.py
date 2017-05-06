@@ -109,3 +109,7 @@ class ListCategoryView(LoginRequiredMixin, ListView):
 
 class ListProductView(LoginRequiredMixin, ListView):
     model = Product
+
+
+class ListMealView(LoginRequiredMixin, ListView):
+    model = Meal

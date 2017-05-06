@@ -21,7 +21,8 @@
                       <a class="dropdown-toggle" data-toggle="dropdown" href="#">Meals
                           <span class="caret"></span></a>
                           <ul class="dropdown-menu">
-                            <li><a href="{% url 'add_meal' %}">Add meal</a></li>
+                              <li><a href="{% url 'list_meal' %}">All meals</a></li>
+                                <li><a href="{% url 'add_meal' %}">Add meal</a></li>
                           </ul>
                   </li>
 
@@ -30,7 +31,7 @@
                           <span class="caret"></span></a>
                           <ul class="dropdown-menu">
                               <li><a href="{% url 'list_product' %}">All products</a></li>
-                                <li><a href="{% url 'add_product' %}">Add product</a></li>
+                              <li><a href="{% url 'add_product' %}">Add product</a></li>
                           </ul>
                   </li>
 
