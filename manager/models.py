@@ -11,6 +11,11 @@ MEAL_NAME = (
     (6, "Other")
 )
 
+UNITS = (
+    (1, "ml"),
+    (2, "g"),
+)
+
 
 class Category(models.Model):
     name = models.CharField(max_length=128)
@@ -26,7 +31,12 @@ class Category(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=128)
     description = models.CharField(max_length=512, null=True)
-    calories = models.FloatField()
+    calories = models.FloatField(null=True)
+    carbohydrates = models.FloatField(null=True)
+    protein = models.FloatField(null=True)
+    sugars = models.FloatField(null=True)
+    salt = models.FloatField(null=True)
+    fat = models.FloatField(null=True)
     category = models.ManyToManyField(Category)
 
     @property
@@ -36,9 +46,10 @@ class Product(models.Model):
     def __str__(self):
         return self.product_name
 
+
 class Meal(models.Model):
     name = models.IntegerField(choices=MEAL_NAME)
-    product = models.ManyToManyField(Product)
+    product = models.ManyToManyField(Product, through='Quantity')
     meal_date = models.DateField()
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
@@ -49,3 +60,10 @@ class Meal(models.Model):
 
     def __str__(self):
         return self.meal_name
+
+
+class Quantity(models.Model):
+    meal = models.ForeignKey(Meal, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.FloatField()
+    unit = models.IntegerField(choices=UNITS)
