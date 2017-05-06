@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic.edit import CreateView
+from django.views.generic.list import ListView
 from .models import Meal, Product, Category, MEAL_NAME
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django import forms
@@ -100,3 +101,11 @@ class AddCategoryView(LoginRequiredMixin, CreateView):
         form = super(AddCategoryView, self).get_form()
         form.fields['name'].widget = forms.TextInput(attrs={'class':'form-control', 'placeholder':'Category name'})
         return form
+
+
+class ListCategoryView(LoginRequiredMixin, ListView):
+    model = Category
+
+
+class ListProductView(LoginRequiredMixin, ListView):
+    model = Product
