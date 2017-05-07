@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 # Create your models here.
 
 MEAL_NAME = (
@@ -27,6 +28,9 @@ class Category(models.Model):
     def __str__(self):
         return self.category_name
 
+    def get_absolute_url(self):
+        return reverse("list_category")
+
 
 class Product(models.Model):
     name = models.CharField(max_length=128)
@@ -46,6 +50,9 @@ class Product(models.Model):
     def __str__(self):
         return self.product_name
 
+    def get_absolute_url(self):
+        return reverse("list_product")
+
 
 class Meal(models.Model):
     name = models.IntegerField(choices=MEAL_NAME)
@@ -60,6 +67,9 @@ class Meal(models.Model):
 
     def __str__(self):
         return self.meal_name
+
+    def get_absolute_url(self):
+        return reverse("list_meal")
 
 
 class Quantity(models.Model):

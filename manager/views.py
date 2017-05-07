@@ -86,9 +86,68 @@ class AddProductView(LoginRequiredMixin, CreateView):
 
     def get_form(self):
         form = super(AddProductView, self).get_form()
-        form.fields['name'].widget = forms.TextInput(attrs={'class':'form-control', 'placeholder':'Product'})
-        form.fields['description'].widget = forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Description of a product'})
-        form.fields['calories'].widget = forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Calories in 100g/100ml'})
+        form.fields['name'].widget = forms.TextInput(attrs={
+            'class':'form-control',
+            'placeholder':'Products name',
+            'title':"Products name",
+            'data - toggle':"popover",
+            'data - trigger':"hover"
+        })
+        form.fields['description'].widget = forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Description of a product',
+            'title':"Products description",
+            'data - toggle':"popover",
+            'data - trigger':"hover"
+        })
+        form.fields['calories'].widget = forms.NumberInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Calories in 100g/100ml',
+            'title':"Calories in 100g/100ml",
+            'data - toggle':"popover",
+            'data - trigger':"hover",
+            'step':'0.1'
+        })
+        form.fields['carbohydrates'].widget = forms.NumberInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Carbohydrates in 100g/100ml',
+            'title':"Carbohydrates in 100g/100ml",
+            'data - toggle':"popover",
+            'data - trigger':"hover",
+            'step': '0.1'
+        })
+        form.fields['protein'].widget = forms.NumberInput(attrs={
+            'class': 'form-control',
+            'placeholder':'Protein in 100g/100ml',
+            'title':"Protein in 100g/100ml",
+            'data - toggle':"popover",
+            'data - trigger':"hover",
+            'step': '0.1'
+        })
+        form.fields['sugars'].widget = forms.NumberInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Sugars in 100g/100ml',
+            'title':"Sugars in 100g/100ml",
+            'data - toggle':"popover",
+            'data - trigger':"hover",
+            'step': '0.1'
+        })
+        form.fields['salt'].widget = forms.NumberInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Salt in 100g/100ml',
+            'title':"Salt in 100g/100ml",
+            'data - toggle':"popover",
+            'data - trigger':"hover",
+            'step': '0.1'
+        })
+        form.fields['fat'].widget = forms.NumberInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Fat in 100g/100ml',
+            'title':"Fat in 100g/100ml",
+            'data - toggle':"popover",
+            'data - trigger':"hover",
+            'step': '0.1'
+        })
         form.fields['category'].widget = forms.SelectMultiple(attrs={'class': 'form-control'}, choices=category_choices)
         return form
 
