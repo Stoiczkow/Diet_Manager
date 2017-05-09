@@ -64,32 +64,35 @@ class MainPageView(LoginRequiredMixin, View):
 
 
 class AddMealView(LoginRequiredMixin, CreateView):
-    # def get(self, request):
-    #     form = MealForm()
-    #     form_2 = QuantityForm()
-    #     form.created_by = request.User
-    #     ctx = {
-    #         'form':form,
-    #         'form_2':form_2
-    #     }
-    #     return render(request, 'manager/meal_form.html', ctx)
-
-
-
-    model = Meal
-    fields = ['name', 'meal_date', 'product']
-    # initial = {'user': 3}
-    def get_form(self):
-        form = super(AddMealView, self).get_form()
+    def get(self, request):
+        form = MealForm()
+        form_2 = QuantityForm()
         form.fields['meal_date'].widget = forms.DateInput(attrs={'class':'form-control', 'type':'date', 'placeholder':'Meal date'})
         form.fields['name'].widget = forms.Select(attrs={'class': 'form-control'}, choices=MEAL_NAME)
         form.fields['product'].widget = forms.SelectMultiple(attrs={'class': 'form-control'}, choices=product_choices)
-        return form
 
-    # auto-set logged user to the form
-    def form_valid(self, form):
-        form.instance.created_by = self.request.user
-        return super(AddMealView, self).form_valid(form)
+        ctx = {
+            'form':form,
+            'form_2':form_2
+        }
+        return render(request, 'manager/meal_form.html', ctx)
+
+
+
+    # model = Meal
+    # fields = ['name', 'meal_date', 'product']
+    # # initial = {'user': 3}
+    # def get_form(self):
+    #     form = super(AddMealView, self).get_form()
+    #     form.fields['meal_date'].widget = forms.DateInput(attrs={'class':'form-control', 'type':'date', 'placeholder':'Meal date'})
+    #     form.fields['name'].widget = forms.Select(attrs={'class': 'form-control'}, choices=MEAL_NAME)
+    #     form.fields['product'].widget = forms.SelectMultiple(attrs={'class': 'form-control'}, choices=product_choices)
+    #     return form
+    #
+    # # auto-set logged user to the form
+    # def form_valid(self, form):
+    #     form.instance.created_by = self.request.user
+    #     return super(AddMealView, self).form_valid(form)
 
 
 class AddQuantityView(LoginRequiredMixin, CreateView):

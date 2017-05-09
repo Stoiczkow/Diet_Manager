@@ -15,11 +15,11 @@ class MealForm(ModelForm):
 
     class Meta:
         model = Meal
-        fields = '__all__'
+        exclude = ['created_by']
 
 
 class QuantityForm(ModelForm):
 
     class Meta:
         model = Quantity
-        fields = '__all__'
+        exclude = ['meal', 'product']

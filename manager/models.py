@@ -12,11 +12,6 @@ MEAL_NAME = (
     (6, "Other")
 )
 
-UNITS = (
-    (1, "ml"),
-    (2, "g"),
-)
-
 
 class Category(models.Model):
     name = models.CharField(max_length=128)
@@ -76,4 +71,3 @@ class Quantity(models.Model):
     meal = models.ForeignKey(Meal, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.FloatField()
-    unit = models.IntegerField(choices=UNITS)
