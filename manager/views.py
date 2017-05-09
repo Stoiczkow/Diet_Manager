@@ -95,10 +95,6 @@ class AddMealView(LoginRequiredMixin, CreateView):
     #     return super(AddMealView, self).form_valid(form)
 
 
-class AddQuantityView(LoginRequiredMixin, CreateView):
-    model = Quantity
-    fields = '__all__'
-
 class AddProductView(LoginRequiredMixin, CreateView):
     model = Product
     fields = '__all__'
