@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
-from .models import Meal, Product, Category, MEAL_NAME
+from .models import Meal, Product, Category, MEAL_NAME, Quantity
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django import forms
 
@@ -64,6 +64,18 @@ class MainPageView(LoginRequiredMixin, View):
 
 
 class AddMealView(LoginRequiredMixin, CreateView):
+    # def get(self, request):
+    #     form = MealForm()
+    #     form_2 = QuantityForm()
+    #     form.created_by = request.User
+    #     ctx = {
+    #         'form':form,
+    #         'form_2':form_2
+    #     }
+    #     return render(request, 'manager/meal_form.html', ctx)
+
+
+
     model = Meal
     fields = ['name', 'meal_date', 'product']
     # initial = {'user': 3}
@@ -79,6 +91,10 @@ class AddMealView(LoginRequiredMixin, CreateView):
         form.instance.created_by = self.request.user
         return super(AddMealView, self).form_valid(form)
 
+
+class AddQuantityView(LoginRequiredMixin, CreateView):
+    model = Quantity
+    fields = '__all__'
 
 class AddProductView(LoginRequiredMixin, CreateView):
     model = Product

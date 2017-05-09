@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^add_meal/$', AddMealView.as_view(), name='add_meal'),
     url(r'^add_product/$', AddProductView.as_view(), name='add_product'),
     url(r'^add_category/$', AddCategoryView.as_view(), name='add_category'),
+    url(r'^add_quantity/$', AddQuantityView.as_view(), name='add_quantity'),
     url(r'^list_meal/$', ListMealView.as_view(), name='list_meal'),
     url(r'^list_product/$', ListProductView.as_view(), name='list_product'),
     url(r'^list_category/$', ListCategoryView.as_view(), name='list_category'),
