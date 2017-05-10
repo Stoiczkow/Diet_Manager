@@ -77,6 +77,8 @@ class AddMealView(LoginRequiredMixin, CreateView):
         }
         return render(request, 'manager/meal_form.html', ctx)
 
+    
+
 
 
     # model = Meal
