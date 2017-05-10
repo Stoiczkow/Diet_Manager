@@ -63,7 +63,7 @@ class MainPageView(LoginRequiredMixin, View):
         return render(request, 'manager/index.html', ctx)
 
 
-class AddMealView(LoginRequiredMixin, CreateView):
+class AddMealView(LoginRequiredMixin, View):
     def get(self, request):
         form = MealForm()
         form_2 = QuantityForm()
@@ -77,7 +77,8 @@ class AddMealView(LoginRequiredMixin, CreateView):
         }
         return render(request, 'manager/meal_form.html', ctx)
 
-    
+    def post(self, request):
+        pass
 
 
 

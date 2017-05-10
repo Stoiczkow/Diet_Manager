@@ -10,16 +10,19 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	for(var i = 0; i < optns.length; i++){
 		optns[i].addEventListener("click", function(){
-		    var label = this.innerHTML
-		    label = '#'+String(label)
+		    var label = this.innerHTML;
+		    label = '#'+String(label);
 		    var product = document.querySelector(label)
-            product.setAttribute('style', 'display:block')
-            product.setAttribute('class', 'chosen')
-            console.log(product);
-            var del_prod = product.querySelector('span')
+            product.setAttribute('style', 'display:block');
+            product.setAttribute('class', 'chosen');
+
+            var del_prod = product.querySelector('span');
             del_prod.addEventListener('click', function(){
-                product.setAttribute('style', 'display:none')
-                product.removeAttribute('class')
+                product.setAttribute('style', 'display:none');
+                product.removeAttribute('class');
+                product.setAttribute('value', '');
+                product.querySelector('input').value = 0;
+
             })
 		})
 
