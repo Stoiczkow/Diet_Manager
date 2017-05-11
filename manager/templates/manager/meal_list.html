@@ -1,34 +1,43 @@
 {% extends 'manager/index.html' %}
 
 {% block content %}
-<div class="col-sm-3"></div>
-<div class="container  col-sm-6">
-    <div class="list-group">
-        {% for meal in object_list %}
-        <a href="#" class="list-group-item">{{ meal }}  <span class="badge">{{ meal.meal_date }}</span></a>
-        {% endfor %}
-    </div>
-</div>
-
-
 <!--<div class="col-sm-3"></div>-->
 <!--<div class="container  col-sm-6">-->
     <!--<div class="list-group">-->
         <!--{% for meal in object_list %}-->
-            <!--<div class="panel-group">-->
-                <!--<div class="panel panel-default">-->
-                    <!--<div class="panel-heading ">-->
-                        <!--<a data-toggle="collapse" href="#{{ meal.pk }}" class="list-group-item">{{ meal }}</a>-->
-                    <!--</div>-->
-                    <!--<div id="{{ meal.pk }}" class="panel-collapse collapse">-->
-                        <!--<ul class="list-group-item">-->
-                            <!--<li class="list-group-item list-group-item-success">Date <span class="badge">{{ meal.meal_date }}</span></li>-->
-
-                        <!--</ul>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
+        <!--<a href="#" class="list-group-item">{{ meal }}  <span class="badge">{{ meal.meal_date }}</span></a>-->
         <!--{% endfor %}-->
     <!--</div>-->
 <!--</div>-->
+
+<div class="col-sm-3"></div>
+<div class="container  col-sm-6">
+    <div class="list-group">
+        {% for meal in meals %}
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading ">
+                        <a data-toggle="collapse" href="#{{ meal.pk }}" class="list-group-item">{{ meal }}
+                            <span class="badge">{{ meal.meal_date }}</span></a>
+                    </div>
+                    <div id="{{ meal.pk }}" class="panel-collapse collapse">
+                        <ul class="list-group-item">
+                            {% for m_name in meal_names %}
+                                {% if meal.name in m_name %}
+                                    {% for key, value in products.items %}
+                                        {% if key == m_name.1 %}
+                                            <li class="list-group-item list-group-item-success">{{ value.0 }}
+                                                <span class="badge">Quantity {{ value.1 }}</span></li>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
 {% endblock %}

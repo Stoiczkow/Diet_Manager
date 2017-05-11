@@ -190,8 +190,22 @@ class ListProductView(LoginRequiredMixin, ListView):
     model = Product
 
 
-class ListMealView(LoginRequiredMixin, ListView):
-    model = Meal
+class ListMealView(LoginRequiredMixin, View):
+    def get(self, request):
+        meals = Meal.objects.filter(created_by=request.user)
+        quantity = Quantity.objects.all()
+        meal_names = MEAL_NAME
+        products = {}
+        for meal in meals:
+            for quan in quantity:
+                if quan.meal == meal:
+                    products[str(meal)] = [quan.product, quan.quantity]
+        ctx = {
+            'meals':meals,
+            'products':products,
+            'meal_names':meal_names
+               }
+        return render(request, 'manager/meal_list.html', ctx)
 
 
 class EditProductView(LoginRequiredMixin, UpdateView):
