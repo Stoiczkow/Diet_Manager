@@ -19,26 +19,15 @@
     <p><div class="input-group col-sm-6">
         {{ form.product }}
     </div></p>
-    {% for choice_id, choice_label in form.product.field.choices %}
-        <p style="display:none" id="{{ choice_label }}" class="col-sm-3">{{ choice_label }} <input type="number" name="{{ choice_label }}" value="0" >
-            <a href="#"><span class="glyphicon glyphicon-remove"></span></a></p>
-    {% endfor %}
-
+    <div class="input-group ">
+        {% for choice_id, choice_label in form.product.field.choices %}
+            <p style="display:none" id="{{ choice_label }}" class="col-sm-3">{{ choice_label }}
+                <input type="number" class="form-control" name="{{ choice_label }}" value="0" >
+                <a href="#"><span class="glyphicon glyphicon-remove"></span></a></p>
+        {% endfor %}
+    </div>
   <p><button type="submit" class="btn btn-default" >Add meal</button></p>
 </form></center>
 
-<!--<div class="col-sm-5"></div>-->
-<!--<div class="container  col-sm-4">-->
-    <!--<div class="list-group">-->
-        <!--{% for category in categories %}-->
-        <!--<a href="#" class="list-group-item">{{ category.name }}</a>-->
-        <!--{% endfor %}-->
-    <!--</div>-->
-<!--</div>-->
 
-<!--{% for choice_id, choice_label in form.product.field.choices %}-->
-        <!--<p style="display:none" id="{{ choice_label }}">{{ choice_label }} <input type="number" name="{{ choice_label }}" value="0">-->
-            <!--<a href="#"><span class="glyphicon glyphicon-remove"></span></a></p>-->
-    <!--{% endfor %}-->
 {% endblock %}
-<a href="#" class="list-group-item">{{ category.name }}</a>
