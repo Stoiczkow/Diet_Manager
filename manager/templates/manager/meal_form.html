@@ -21,7 +21,7 @@
     </div></p>
     <div class="input-group ">
         {% for choice_id, choice_label in form.product.field.choices %}
-            <p style="display:none" id="{{ choice_label }}" class="col-sm-3">{{ choice_label }}
+        <p style="display:none" id="{{ choice_label }}" class="col-sm-3">{{ choice_label }}
                 <input type="number" class="form-control" name="{{ choice_label }}" value="0" >
                 <a href="#"><span class="glyphicon glyphicon-remove"></span></a></p>
         {% endfor %}
