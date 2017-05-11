@@ -195,11 +195,12 @@ class ListMealView(LoginRequiredMixin, View):
         meals = Meal.objects.filter(created_by=request.user)
         quantity = Quantity.objects.all()
         meal_names = MEAL_NAME
-        products = {}
+        products = []
         for meal in meals:
             for quan in quantity:
                 if quan.meal == meal:
-                    products[str(meal)] = [quan.product, quan.quantity]
+                    products.append([str(meal), quan.product, quan.quantity])
+
         ctx = {
             'meals':meals,
             'products':products,

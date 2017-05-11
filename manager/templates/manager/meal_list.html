@@ -1,14 +1,6 @@
 {% extends 'manager/index.html' %}
 
 {% block content %}
-<!--<div class="col-sm-3"></div>-->
-<!--<div class="container  col-sm-6">-->
-    <!--<div class="list-group">-->
-        <!--{% for meal in object_list %}-->
-        <!--<a href="#" class="list-group-item">{{ meal }}  <span class="badge">{{ meal.meal_date }}</span></a>-->
-        <!--{% endfor %}-->
-    <!--</div>-->
-<!--</div>-->
 
 <div class="col-sm-3"></div>
 <div class="container  col-sm-6">
@@ -24,10 +16,10 @@
                         <ul class="list-group-item">
                             {% for m_name in meal_names %}
                                 {% if meal.name in m_name %}
-                                    {% for key, value in products.items %}
-                                        {% if key == m_name.1 %}
-                                            <li class="list-group-item list-group-item-success">{{ value.0 }}
-                                                <span class="badge">Quantity {{ value.1 }}</span></li>
+                                    {% for product in products %}
+                                        {% if product.0 == m_name.1 %}
+                                            <li class="list-group-item list-group-item-success">{{ product.1 }}
+                                                <span class="badge">{{ product.2 }} g</span></li>
                                         {% endif %}
                                     {% endfor %}
                                 {% endif %}
