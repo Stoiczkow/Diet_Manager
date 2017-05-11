@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
-from .models import Meal, Product, Category, MEAL_NAME, Quantity
+from .models import Meal, Product, Category, MEAL_NAME
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django import forms
 
@@ -66,36 +66,29 @@ class MainPageView(LoginRequiredMixin, View):
 class AddMealView(LoginRequiredMixin, View):
     def get(self, request):
         form = MealForm()
-        form_2 = QuantityForm()
         form.fields['meal_date'].widget = forms.DateInput(attrs={'class':'form-control', 'type':'date', 'placeholder':'Meal date'})
         form.fields['name'].widget = forms.Select(attrs={'class': 'form-control'}, choices=MEAL_NAME)
         form.fields['product'].widget = forms.SelectMultiple(attrs={'class': 'form-control'}, choices=product_choices)
 
         ctx = {
             'form':form,
-            'form_2':form_2
         }
         return render(request, 'manager/meal_form.html', ctx)
 
     def post(self, request):
-        pass
-
-
-
-    # model = Meal
-    # fields = ['name', 'meal_date', 'product']
-    # # initial = {'user': 3}
-    # def get_form(self):
-    #     form = super(AddMealView, self).get_form()
-    #     form.fields['meal_date'].widget = forms.DateInput(attrs={'class':'form-control', 'type':'date', 'placeholder':'Meal date'})
-    #     form.fields['name'].widget = forms.Select(attrs={'class': 'form-control'}, choices=MEAL_NAME)
-    #     form.fields['product'].widget = forms.SelectMultiple(attrs={'class': 'form-control'}, choices=product_choices)
-    #     return form
-    #
-    # # auto-set logged user to the form
-    # def form_valid(self, form):
-    #     form.instance.created_by = self.request.user
-    #     return super(AddMealView, self).form_valid(form)
+        products = Product.objects.all()
+        meal_name = request.POST.get('name')
+        meal_date = request.POST.get('meal_date')
+        meal_user = request.user
+        meal_products = {}
+        new_meal = Meal.objects.create(name=meal_name, meal_date=meal_date, created_by=meal_user)
+        for product in products:
+            quan = request.POST.get(str(product.name))
+            if quan != 0:
+                Quantity.objects.create(quantity=quan, meal = new_meal, product = product)
+                meal_products[str(product.name)] = request.POST.get(str(product.name))
+        ctx = {'success':"You've added new meal!"}
+        return render(request, 'manager/meal_form.html', ctx)
 
 
 class AddProductView(LoginRequiredMixin, CreateView):
