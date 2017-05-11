@@ -173,8 +173,17 @@ class AddCategoryView(LoginRequiredMixin, CreateView):
         return form
 
 
-class ListCategoryView(LoginRequiredMixin, ListView):
-    model = Category
+class ListCategoryView(LoginRequiredMixin, View):
+    def get(self, request):
+        categories = Category.objects.all()
+        products = {}
+        for category in categories:
+            products[str(category.name)] = Product.objects.filter(category=category)
+        ctx = {
+            'categories':categories,
+            'products':products
+               }
+        return render(request, 'manager/category_list.html', ctx)
 
 
 class ListProductView(LoginRequiredMixin, ListView):
