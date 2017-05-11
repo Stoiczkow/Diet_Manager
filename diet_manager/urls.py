@@ -29,4 +29,5 @@ urlpatterns = [
     url(r'^list_meal/$', ListMealView.as_view(), name='list_meal'),
     url(r'^list_product/$', ListProductView.as_view(), name='list_product'),
     url(r'^list_category/$', ListCategoryView.as_view(), name='list_category'),
+    url(r'^edit_product/(?P<pk>(\d)+)$', EditProductView.as_view(), name='edit_product'),
 ]

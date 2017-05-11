@@ -5,7 +5,7 @@ from .forms import *
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
 from .models import Meal, Product, Category, MEAL_NAME
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -183,3 +183,60 @@ class ListProductView(LoginRequiredMixin, ListView):
 
 class ListMealView(LoginRequiredMixin, ListView):
     model = Meal
+
+
+class EditProductView(LoginRequiredMixin, UpdateView):
+    model = Product
+    fields = '__all__'
+    template_name_suffix = '_update_form'
+
+    def get_form(self):
+        form = super(EditProductView, self).get_form()
+        form.fields['name'].widget = forms.TextInput(attrs={
+            'class':'form-control',
+            'placeholder':'Products name',
+            'title':"Products name",
+        })
+        form.fields['description'].widget = forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Description of a product',
+            'title':"Products description",
+        })
+        form.fields['calories'].widget = forms.NumberInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Calories in 100g/100ml',
+            'title':"Calories in 100g/100ml",
+            'step':'0.1'
+        })
+        form.fields['carbohydrates'].widget = forms.NumberInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Carbohydrates in 100g/100ml',
+            'title':"Carbohydrates in 100g/100ml",
+            'step': '0.1'
+        })
+        form.fields['protein'].widget = forms.NumberInput(attrs={
+            'class': 'form-control',
+            'placeholder':'Protein in 100g/100ml',
+            'title':"Protein in 100g/100ml",
+            'step': '0.1'
+        })
+        form.fields['sugars'].widget = forms.NumberInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Sugars in 100g/100ml',
+            'title':"Sugars in 100g/100ml",
+            'step': '0.1'
+        })
+        form.fields['salt'].widget = forms.NumberInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Salt in 100g/100ml',
+            'title':"Salt in 100g/100ml",
+            'step': '0.1'
+        })
+        form.fields['fat'].widget = forms.NumberInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Fat in 100g/100ml',
+            'title':"Fat in 100g/100ml",
+            'step': '0.1'
+        })
+        form.fields['category'].widget = forms.SelectMultiple(attrs={'class': 'form-control'}, choices=category_choices)
+        return form
