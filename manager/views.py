@@ -192,7 +192,7 @@ class ListProductView(LoginRequiredMixin, ListView):
 
 class ListMealView(LoginRequiredMixin, View):
     def get(self, request):
-        meals = Meal.objects.filter(created_by=request.user)
+        meals = Meal.objects.filter(created_by=request.user).order_by('-meal_date')
         quantity = Quantity.objects.all()
         meal_names = MEAL_NAME
         products = []
