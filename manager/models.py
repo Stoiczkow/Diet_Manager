@@ -15,6 +15,7 @@ MEAL_NAME = (
 
 class Category(models.Model):
     name = models.CharField(max_length=128)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     @property
     def category_name(self):
@@ -37,6 +38,7 @@ class Product(models.Model):
     salt = models.FloatField(null=True)
     fat = models.FloatField(null=True)
     category = models.ManyToManyField(Category)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     @property
     def product_name(self):
