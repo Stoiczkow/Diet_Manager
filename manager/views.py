@@ -5,8 +5,7 @@ from .forms import *
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.views.generic.edit import CreateView, UpdateView
-from django.views.generic.list import ListView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Meal, Product, Category, MEAL_NAME
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django import forms
@@ -198,6 +197,17 @@ class ListCategoryView(LoginRequiredMixin, View):
                }
         return render(request, 'manager/category_list.html', ctx)
 
+    def post(self, request):
+        categories = Category.objects.filter(Q(created_by=request.user) | Q(created_by=None))
+        products = {}
+        for category in categories:
+            products[str(category.name)] = Product.objects.filter(category=category)
+        ctx = {
+            'categories': categories,
+            'products': products
+        }
+        return render(request, 'manager/category_list.html', ctx)
+
 
 class ListProductView(LoginRequiredMixin, View):
     def get(self, request):
@@ -282,3 +292,8 @@ class EditProductView(LoginRequiredMixin, UpdateView):
         })
         form.fields['category'].widget = forms.SelectMultiple(attrs={'class': 'form-control'}, choices=category_choices(self.request))
         return form
+
+
+class DeleteCategoryView(LoginRequiredMixin, DeleteView):
+    model = Category
+    success_url = '/list_category'
