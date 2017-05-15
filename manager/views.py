@@ -297,3 +297,13 @@ class EditProductView(LoginRequiredMixin, UpdateView):
 class DeleteCategoryView(LoginRequiredMixin, DeleteView):
     model = Category
     success_url = '/list_category'
+
+
+class DeleteProductView(LoginRequiredMixin, DeleteView):
+    model = Product
+    success_url = '/list_product'
+
+
+class DeleteMealView(LoginRequiredMixin, DeleteView):
+    model = Meal
+    success_url = '/list_meal'

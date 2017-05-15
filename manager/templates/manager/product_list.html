@@ -14,7 +14,10 @@
                         <ul class="list-group-item">
                             <li class="list-group-item list-group-item-info">{{ product.description }}
                                 <span class="badge">
-                                    <a href="{% url 'edit_product' pk=product.pk %}" style="color: white; text-decoration: none;">Edit</a></span></li>
+                                    <a href="{% url 'delete_product' pk=product.pk %}" style="color: white; text-decoration: none;" >Delete</a></span>
+                                <span class="badge">
+                                    <a href="{% url 'edit_product' pk=product.pk %}" style="color: white; text-decoration: none;">Edit</a></span>
+                            </li>
                             <li class="list-group-item list-group-item-success">Calories <span class="badge">{{ product.calories }} kcal</span></li>
                             <li class="list-group-item list-group-item-success">Carbohydrates <span class="badge">{{ product.carbohydrates }} g</span></li>
                             <li class="list-group-item list-group-item-success">Protein <span class="badge">{{ product.protein }} g</span></li>

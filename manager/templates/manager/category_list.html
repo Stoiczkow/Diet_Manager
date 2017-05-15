@@ -16,7 +16,7 @@
                             <li class="list-group-item list-group-item-info">
                                 Actions
                                 <span class="badge">
-                                    <a href="{% url 'delete_category' pk=category.pk %} " style="color: white; text-decoration: none;" >Delete</a></span>
+                                    <a href="{% url 'delete_category' pk=category.pk %}" style="color: white; text-decoration: none;" >Delete</a></span>
                             </li>
                             {% for key, value in products.items %}
                                 {% if category.name == key %}

@@ -31,4 +31,6 @@ urlpatterns = [
     url(r'^list_category/$', ListCategoryView.as_view(), name='list_category'),
     url(r'^edit_product/(?P<pk>(\d)+)$', EditProductView.as_view(), name='edit_product'),
     url(r'^delete_category/(?P<pk>(\d)+)$', DeleteCategoryView.as_view(), name='delete_category'),
+    url(r'^delete_product/(?P<pk>(\d)+)$', DeleteProductView.as_view(), name='delete_product'),
+    url(r'^delete_meal/(?P<pk>(\d)+)$', DeleteMealView.as_view(), name='delete_meal'),
 ]

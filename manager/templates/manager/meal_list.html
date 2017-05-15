@@ -14,6 +14,11 @@
                     </div>
                     <div id="{{ meal.pk }}" class="panel-collapse collapse">
                         <ul class="list-group-item">
+                            <li class="list-group-item list-group-item-info">
+                                Actions
+                                <span class="badge">
+                                    <a href="{% url 'delete_meal' pk=meal.pk %}" style="color: white; text-decoration: none;" >Delete</a></span>
+                            </li>
                             {% for m_name in meal_names %}
                                 {% if meal.name in m_name %}
                                     {% for product in products %}
