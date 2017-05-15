@@ -10,6 +10,7 @@ from django.views.generic.list import ListView
 from .models import Meal, Product, Category, MEAL_NAME
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django import forms
+from django.db.models import Q
 
 # Create your views here.
 category_choices = Category.objects.all().values_list('id', 'name')
@@ -162,20 +163,27 @@ class AddProductView(LoginRequiredMixin, CreateView):
         form.fields['category'].widget = forms.SelectMultiple(attrs={'class': 'form-control'}, choices=category_choices)
         return form
 
+        def form_valid(self, form):
+            form.instance.created_by = self.request.user
+            return super(AddProductView, self).form_valid(form)
 
 class AddCategoryView(LoginRequiredMixin, CreateView):
     model = Category
-    fields = '__all__'
+    fields = ['name']
 
     def get_form(self):
         form = super(AddCategoryView, self).get_form()
         form.fields['name'].widget = forms.TextInput(attrs={'class':'form-control', 'placeholder':'Category name'})
         return form
 
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        return super(AddCategoryView, self).form_valid(form)
+
 
 class ListCategoryView(LoginRequiredMixin, View):
     def get(self, request):
-        categories = Category.objects.all()
+        categories = Category.objects.filter(Q(created_by=request.user) | Q(created_by=None))
         products = {}
         for category in categories:
             products[str(category.name)] = Product.objects.filter(category=category)
@@ -186,8 +194,8 @@ class ListCategoryView(LoginRequiredMixin, View):
         return render(request, 'manager/category_list.html', ctx)
 
 
-class ListProductView(LoginRequiredMixin, ListView):
-    model = Product
+class ListProductView(LoginRequiredMixin, View):
+    pass
 
 
 class ListMealView(LoginRequiredMixin, View):
