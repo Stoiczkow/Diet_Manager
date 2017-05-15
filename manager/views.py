@@ -13,8 +13,13 @@ from django import forms
 from django.db.models import Q
 
 # Create your views here.
-category_choices = Category.objects.all().values_list('id', 'name')
-product_choices = Product.objects.all().values_list('id', 'name')
+def category_choices(request):
+    result = Category.objects.filter(Q(created_by=request.user) | Q(created_by=None)).values_list('id', 'name')
+    return result
+
+def product_choices(request):
+    result = Product.objects.filter(Q(created_by=request.user) | Q(created_by=None)).values_list('id', 'name')
+    return result
 
 class RegisterUserView(View):
     def get(self, request):
@@ -69,7 +74,7 @@ class AddMealView(LoginRequiredMixin, View):
         form = MealForm()
         form.fields['meal_date'].widget = forms.DateInput(attrs={'class':'form-control', 'type':'date', 'placeholder':'Meal date'})
         form.fields['name'].widget = forms.Select(attrs={'class': 'form-control'}, choices=MEAL_NAME)
-        form.fields['product'].widget = forms.SelectMultiple(attrs={'class': 'form-control'}, choices=product_choices)
+        form.fields['product'].widget = forms.SelectMultiple(attrs={'class': 'form-control'}, choices=product_choices(self.request))
 
         ctx = {
             'form':form,
@@ -160,7 +165,7 @@ class AddProductView(LoginRequiredMixin, CreateView):
             'data - trigger':"hover",
             'step': '0.1'
         })
-        form.fields['category'].widget = forms.SelectMultiple(attrs={'class': 'form-control'}, choices=category_choices)
+        form.fields['category'].widget = forms.SelectMultiple(attrs={'class': 'form-control'}, choices=category_choices(self.request))
         return form
 
     def form_valid(self, form):
@@ -275,5 +280,5 @@ class EditProductView(LoginRequiredMixin, UpdateView):
             'title':"Fat in 100g/100ml",
             'step': '0.1'
         })
-        form.fields['category'].widget = forms.SelectMultiple(attrs={'class': 'form-control'}, choices=category_choices)
+        form.fields['category'].widget = forms.SelectMultiple(attrs={'class': 'form-control'}, choices=category_choices(self.request))
         return form
