@@ -16,6 +16,7 @@
                 <div class="navbar-header">
                   <a class="navbar-brand" href="#">Diet Manager</a>
                 </div>
+                {% if request.user.is_authenticated %}
                 <ul class="nav navbar-nav">
                   <li class="active"><a href="{% url 'index' %}">Home</a></li>
 
@@ -46,7 +47,7 @@
                           </ul>
                   </li>
                 </ul>
-                {% if request.user.is_authenticated %}
+
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#"> {{ user }}
