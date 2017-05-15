@@ -94,7 +94,7 @@ class AddMealView(LoginRequiredMixin, View):
 
 class AddProductView(LoginRequiredMixin, CreateView):
     model = Product
-    fields = '__all__'
+    fields = ['name', 'description', 'calories', 'carbohydrates', 'protein', 'sugars', 'salt', 'fat', 'category']
 
     def get_form(self):
         form = super(AddProductView, self).get_form()
@@ -163,9 +163,9 @@ class AddProductView(LoginRequiredMixin, CreateView):
         form.fields['category'].widget = forms.SelectMultiple(attrs={'class': 'form-control'}, choices=category_choices)
         return form
 
-        def form_valid(self, form):
-            form.instance.created_by = self.request.user
-            return super(AddProductView, self).form_valid(form)
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        return super(AddProductView, self).form_valid(form)
 
 class AddCategoryView(LoginRequiredMixin, CreateView):
     model = Category
@@ -195,7 +195,12 @@ class ListCategoryView(LoginRequiredMixin, View):
 
 
 class ListProductView(LoginRequiredMixin, View):
-    pass
+    def get(self, request):
+        products = Product.objects.filter(Q(created_by=request.user) | Q(created_by=None))
+        ctx = {
+            'products':products
+        }
+        return render(request, 'manager/product_list.html', ctx)
 
 
 class ListMealView(LoginRequiredMixin, View):
