@@ -10,6 +10,7 @@ from .models import Meal, Product, Category, MEAL_NAME
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django import forms
 from django.db.models import Q
+from datetime import datetime, timedelta
 
 # Create your views here.
 def category_choices(request):
@@ -60,11 +61,12 @@ class LogoutView(View):
 
 class MainPageView(LoginRequiredMixin, View):
     def get(self, request):
-        ctx = {'success': "Super!"}
-        return render(request, 'manager/index.html', ctx)
-
-    def post(self, request):
-        ctx = {'success': "Super!"}
+        current_date = datetime.now().date()
+        week_back = current_date - timedelta(days=7)
+        meals = Meal.objects.filter(meal_date__gt=week_back, meal_date__lt=current_date)
+        ctx = {
+               'meals':meals,
+               }
         return render(request, 'manager/index.html', ctx)
 
 
@@ -240,7 +242,6 @@ class ListMealView(LoginRequiredMixin, View):
     def get(self, request):
         meals = Meal.objects.filter(created_by=request.user).order_by('-meal_date')
         quantity = Quantity.objects.all()
-        meal_names = MEAL_NAME
         products = []
         for meal in meals:
             for quan in quantity:
@@ -250,7 +251,6 @@ class ListMealView(LoginRequiredMixin, View):
         ctx = {
             'meals':meals,
             'products':products,
-            'meal_names':meal_names
                }
         return render(request, 'manager/meal_list.html', ctx)
 
