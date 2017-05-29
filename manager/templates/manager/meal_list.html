@@ -19,16 +19,22 @@
                                 <span class="badge">
                                     <a href="{% url 'delete_meal' pk=meal.pk %}" style="color: white; text-decoration: none;" >Delete</a></span>
                             </li>
-                            {% for m_name in meal_names %}
-                                {% if meal.name in m_name %}
-                                    {% for product in products %}
-                                        {% if product.0 == meal.pk %}
-                                            <li class="list-group-item list-group-item-success">{{ product.1 }}
-                                                <span class="badge">{{ product.2 }} g</span></li>
-                                        {% endif %}
-                                    {% endfor %}
-                                {% endif %}
-                            {% endfor %}
+                            <li class="list-group-item list-group-item-success">Calories <span class="badge">{{ meal.calories }} kcal</span></li>
+                            <li class="list-group-item list-group-item-success">Carbohydrates <span class="badge">{{ meal.carbohydrates }} g</span></li>
+                            <li class="list-group-item list-group-item-success">Protein <span class="badge">{{ meal.protein }} g</span></li>
+                            <li class="list-group-item list-group-item-success">Sugars <span class="badge">{{ meal.sugars }} g</span></li>
+                            <li class="list-group-item list-group-item-success">Salt <span class="badge">{{ meal.salt }} g</span></li>
+                            <li class="list-group-item list-group-item-success">Fat <span class="badge">{{ meal.fat }} g</span></li>
+                            <!--{% for m_name in meal_names %}-->
+                                <!--{% if meal.name in m_name %}-->
+                                    <!--{% for product in products %}-->
+                                        <!--{% if product.0 == meal.pk %}-->
+                                            <!--<li class="list-group-item list-group-item-success">{{ product.1 }}-->
+                                                <!--<span class="badge">{{ product.2 }} g</span></li>-->
+                                        <!--{% endif %}-->
+                                    <!--{% endfor %}-->
+                                <!--{% endif %}-->
+                            <!--{% endfor %}-->
                         </ul>
                     </div>
                 </div>
