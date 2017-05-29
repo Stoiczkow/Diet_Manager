@@ -66,6 +66,8 @@ class MainPageView(LoginRequiredMixin, View):
         meals = Meal.objects.filter(meal_date__gt=week_back, meal_date__lt=current_date)
         ctx = {
                'meals':meals,
+               'current_date':current_date,
+               'week_back':week_back
                }
         return render(request, 'manager/index.html', ctx)
 
