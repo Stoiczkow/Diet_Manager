@@ -92,8 +92,7 @@ class AddMealView(LoginRequiredMixin, View):
             if int(quan) != 0:
                 Quantity.objects.create(quantity=quan, meal = new_meal, product = product)
                 meal_products[str(product.name)] = request.POST.get(str(product.name))
-        ctx = {'success':"You've added new meal!"}
-        return render(request, 'manager/meal_form.html', ctx)
+        return HttpResponseRedirect("/list_meal/")
 
 
 class AddProductView(LoginRequiredMixin, CreateView):

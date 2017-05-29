@@ -55,6 +55,12 @@ class Meal(models.Model):
     name = models.IntegerField(choices=MEAL_NAME)
     product = models.ManyToManyField(Product, through='Quantity')
     meal_date = models.DateField()
+    calories = models.FloatField(null=True)
+    carbohydrates = models.FloatField(null=True)
+    protein = models.FloatField(null=True)
+    sugars = models.FloatField(null=True)
+    salt = models.FloatField(null=True)
+    fat = models.FloatField(null=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     @property
