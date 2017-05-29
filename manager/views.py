@@ -226,7 +226,7 @@ class ListMealView(LoginRequiredMixin, View):
         for meal in meals:
             for quan in quantity:
                 if quan.meal == meal:
-                    products.append([str(meal), quan.product, quan.quantity])
+                    products.append([meal.pk, quan.product, quan.quantity])
 
         ctx = {
             'meals':meals,
