@@ -89,7 +89,7 @@ class AddMealView(LoginRequiredMixin, View):
         new_meal = Meal.objects.create(name=meal_name, meal_date=meal_date, created_by=meal_user)
         for product in products:
             quan = request.POST.get(str(product.name))
-            if quan != 0:
+            if int(quan) != 0:
                 Quantity.objects.create(quantity=quan, meal = new_meal, product = product)
                 meal_products[str(product.name)] = request.POST.get(str(product.name))
         ctx = {'success':"You've added new meal!"}
