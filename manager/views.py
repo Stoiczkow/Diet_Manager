@@ -86,12 +86,31 @@ class AddMealView(LoginRequiredMixin, View):
         meal_date = request.POST.get('meal_date')
         meal_user = request.user
         meal_products = {}
+        calories = 0.0
+        carbohydrates = 0.0
+        protein = 0.0
+        sugars = 0.0
+        salt = 0.0
+        fat = 0.0
         new_meal = Meal.objects.create(name=meal_name, meal_date=meal_date, created_by=meal_user)
         for product in products:
-            quan = request.POST.get(str(product.name))
-            if int(quan) != 0:
+            quan = int(request.POST.get(str(product.name)))
+            if quan != 0:
                 Quantity.objects.create(quantity=quan, meal = new_meal, product = product)
+                calories += (product.calories * quan) / 100
+                carbohydrates += (product.carbohydrates * quan) / 100
+                protein += (product.protein * quan) / 100
+                sugars += (product.sugars * quan) / 100
+                salt += (product.salt * quan) / 100
+                fat += (product.fat * quan) / 100
                 meal_products[str(product.name)] = request.POST.get(str(product.name))
+        new_meal.calories = calories
+        new_meal.carbohydrates = carbohydrates
+        new_meal.protein = protein
+        new_meal.sugars = sugars
+        new_meal.salt = salt
+        new_meal.fat = fat
+        new_meal.save()
         return HttpResponseRedirect("/list_meal/")
 
 
