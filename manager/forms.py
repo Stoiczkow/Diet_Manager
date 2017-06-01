@@ -30,3 +30,47 @@ class TargetForm(ModelForm):
     class Meta:
         model = Target
         exclude = ['created_by', 'is_active']
+        widgets = {
+            'calories':forms.NumberInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Calories in kcal',
+                'title':"Calories in kcal",
+                'data - toggle':"popover",
+                'data - trigger':"hover",
+                'step':'0.1'}),
+            'protein':forms.NumberInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Protein in g',
+                'title':"Protein in g",
+                'data - toggle':"popover",
+                'data - trigger':"hover",
+                'step':'0.1'}),
+            'carbohydrates': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Carbohydrates in g',
+                'title': "Carbohydrates in g",
+                'data - toggle': "popover",
+                'data - trigger': "hover",
+                'step': '0.1'}),
+            'sugars': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Sugars in g',
+                'title': "Sugars in g",
+                'data - toggle': "popover",
+                'data - trigger': "hover",
+                'step': '0.1'}),
+            'salt': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Salt in g',
+                'title': "Salt in g",
+                'data - toggle': "popover",
+                'data - trigger': "hover",
+                'step': '0.1'}),
+            'fat': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Fat in g',
+                'title': "Fat in g",
+                'data - toggle': "popover",
+                'data - trigger': "hover",
+                'step': '0.1'})
+        }
