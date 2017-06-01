@@ -80,7 +80,7 @@
             <div class="container col-sm-3 pull-right">
                 <div class="list-group">
                     <li class="list-group-item list-group-item-info">Current target <span class="badge">
-                                    <a href="#" style="color: white; text-decoration: none;" data-toggle="modal" data-target="#myModal">
+                                    <a href="#" style="color: white; text-decoration: none;" data-toggle="modal" data-target="#target_change">
                                         Change</a></span></li>
                     <li class="list-group-item "> Calories <span class="badge">{{ current_target.calories }} kcal</span></li>
                     <li class="list-group-item "> Carbohydrates <span class="badge">{{ current_target.carbohydrates }} g</span></li>
@@ -89,7 +89,7 @@
                     <li class="list-group-item "> Salt <span class="badge">{{ current_target.salt }} g</span></li>
                     <li class="list-group-item "> Fat <span class="badge">{{ current_target.fat }} g</span></li>
                           <!-- Modal -->
-                    <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal fade" id="target_change" role="dialog">
                         <div class="modal-dialog">
 
                         <!-- Modal content-->
