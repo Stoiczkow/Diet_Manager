@@ -29,7 +29,7 @@ class TargetForm(ModelForm):
 
     class Meta:
         model = Target
-        exclude = ['created_by', 'is_active']
+        exclude = ['created_by', 'is_active', 'target_date']
         widgets = {
             'calories':forms.NumberInput(attrs={
                 'class': 'form-control',
