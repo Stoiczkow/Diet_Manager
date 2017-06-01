@@ -105,7 +105,8 @@ class MainPageView(LoginRequiredMixin, View):
                                            salt=request.POST.get('salt'),
                                            fat=request.POST.get('fat'),
                                            is_active=True,
-                                           created_by=request.user)
+                                           created_by=request.user,
+                                           target_date=datetime.now().date())
         new_target.save()
         return HttpResponseRedirect('/index/')
 

@@ -88,5 +88,6 @@ class Target(models.Model):
     sugars = models.FloatField(null=True)
     salt = models.FloatField(null=True)
     fat = models.FloatField(null=True)
+    target_date=models.DateField(null=True)
     is_active = models.BooleanField(default=False)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
