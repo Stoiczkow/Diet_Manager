@@ -70,7 +70,7 @@
             {% block content%}
             <div class="container col-sm-4">
                 <div class="list-group">
-                    <li class="list-group-item list-group-item-info">Today meals<span class="badge">{{ current_date }}</span></li>
+                    <li class="list-group-item list-group-item-info">Todays meals<span class="badge">{{ current_date }}</span></li>
                     {% for meal in today_meals %}
                         <li class="list-group-item "> {{ meal }} </li>
                     {% endfor %}
@@ -92,12 +92,41 @@
             <div class="container col-sm-3 pull-right">
                 <div class="list-group">
                     <li class="list-group-item list-group-item-info">You've eaten</li>
-                    <li class="list-group-item "> Calories <span class="badge">{{ current_target.calories }}</span></li>
-                    <li class="list-group-item "> Carbohydrates <span class="badge">{{ current_target.carbohydrates }}</span></li>
-                    <li class="list-group-item "> Protein <span class="badge">{{ current_target.protein }}</span></li>
-                    <li class="list-group-item "> Sugars <span class="badge">{{ current_target.sugars }}</span></li>
-                    <li class="list-group-item "> Salt <span class="badge">{{ current_target.salt }}</span></li>
-                    <li class="list-group-item "> Fat <span class="badge">{{ current_target.fat }}</span></li>
+                    {% if today_eaten.calories <= current_target.calories %}
+                        <li class="list-group-item list-group-item-success"> Calories <span class="badge">{{ today_eaten.calories|floatformat:"2" }}</span></li>
+                    {% else %}
+                        <li class="list-group-item list-group-item-danger"> Calories <span class="badge">{{ today_eaten.calories|floatformat:"2" }}</span></li>
+                    {% endif %}
+
+                    {% if today_eaten.carbohydrates <= current_target.carbohydrates %}
+                        <li class="list-group-item list-group-item-success"> Carbohydrates <span class="badge">{{ today_eaten.carbohydrates|floatformat:"2" }}</span></li>
+                    {% else %}
+                        <li class="list-group-item list-group-item-danger"> Carbohydrates <span class="badge">{{ today_eaten.carbohydrates|floatformat:"2" }}</span></li>
+                    {% endif %}
+
+                    {% if today_eaten.protein <= current_target.protein %}
+                        <li class="list-group-item list-group-item-success"> Protein <span class="badge">{{ today_eaten.protein|floatformat:"2" }}</span></li>
+                    {% else %}
+                        <li class="list-group-item list-group-item-danger"> Protein <span class="badge">{{ today_eaten.protein|floatformat:"2" }}</span></li>
+                    {% endif %}
+
+                    {% if today_eaten.sugars <= current_target.sugars %}
+                        <li class="list-group-item list-group-item-success"> Sugars <span class="badge">{{ today_eaten.sugars|floatformat:"2" }}</span></li>
+                    {% else %}
+                        <li class="list-group-item list-group-item-danger"> Sugars <span class="badge">{{ today_eaten.sugars|floatformat:"2" }}</span></li>
+                    {% endif %}
+
+                    {% if today_eaten.salt <= current_target.salt %}
+                        <li class="list-group-item list-group-item-success"> Salt <span class="badge">{{ today_eaten.salt|floatformat:"2" }}</span></li>
+                    {% else %}
+                        <li class="list-group-item list-group-item-danger"> Salt <span class="badge">{{ today_eaten.salt|floatformat:"2" }}</span></li>
+                    {% endif %}
+
+                    {% if today_eaten.fat <= current_target.fat %}
+                        <li class="list-group-item list-group-item-success"> Fat <span class="badge">{{ today_eaten.fat|floatformat:"2" }}</span></li>
+                    {% else %}
+                        <li class="list-group-item list-group-item-danger"> Fat <span class="badge">{{ today_eaten.fat|floatformat:"2" }}</span></li>
+                    {% endif %}
                 </div>
             </div>
 
@@ -109,7 +138,6 @@
                     {% endfor %}
                 </div>
             </div>
-            {{ today_eaten }}
             {% endblock %}
 
         </div>
