@@ -68,14 +68,48 @@
         <div class="container" style="margin-top:60px">
 
             {% block content%}
-            <div class="container  col-sm-5">
+            <div class="container col-sm-4">
                 <div class="list-group">
-                    <li class="list-group-item list-group-item-info">Last week meals:<span class="badge">{{ week_back }} - {{ current_date }}</span></li>
+                    <li class="list-group-item list-group-item-info">Today meals<span class="badge">{{ current_date }}</span></li>
+                    {% for meal in today_meals %}
+                        <li class="list-group-item "> {{ meal }} </li>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="container col-sm-3 pull-right">
+                <div class="list-group">
+                    <li class="list-group-item list-group-item-info">Current target</li>
+                    <li class="list-group-item "> Calories <span class="badge">{{ current_target.calories }}</span></li>
+                    <li class="list-group-item "> Carbohydrates <span class="badge">{{ current_target.carbohydrates }}</span></li>
+                    <li class="list-group-item "> Protein <span class="badge">{{ current_target.protein }}</span></li>
+                    <li class="list-group-item "> Sugars <span class="badge">{{ current_target.sugars }}</span></li>
+                    <li class="list-group-item "> Salt <span class="badge">{{ current_target.salt }}</span></li>
+                    <li class="list-group-item "> Fat <span class="badge">{{ current_target.fat }}</span></li>
+                </div>
+            </div>
+
+            <div class="container col-sm-3 pull-right">
+                <div class="list-group">
+                    <li class="list-group-item list-group-item-info">You've eaten</li>
+                    <li class="list-group-item "> Calories <span class="badge">{{ current_target.calories }}</span></li>
+                    <li class="list-group-item "> Carbohydrates <span class="badge">{{ current_target.carbohydrates }}</span></li>
+                    <li class="list-group-item "> Protein <span class="badge">{{ current_target.protein }}</span></li>
+                    <li class="list-group-item "> Sugars <span class="badge">{{ current_target.sugars }}</span></li>
+                    <li class="list-group-item "> Salt <span class="badge">{{ current_target.salt }}</span></li>
+                    <li class="list-group-item "> Fat <span class="badge">{{ current_target.fat }}</span></li>
+                </div>
+            </div>
+
+            <div class="container col-sm-4">
+                <div class="list-group">
+                    <li class="list-group-item list-group-item-info">Last week meals<span class="badge">{{ week_back }} - {{ current_date }}</span></li>
                     {% for meal in meals %}
                         <li class="list-group-item "> {{ meal }} <span class="badge">{{ meal.meal_date }}</span></li>
                     {% endfor %}
                 </div>
             </div>
+            {{ today_eaten }}
             {% endblock %}
 
         </div>

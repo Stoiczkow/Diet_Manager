@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Meal, Product, Category, MEAL_NAME
+from .models import Meal, Product, Category, MEAL_NAME, Target
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django import forms
 from django.db.models import Q
@@ -20,6 +20,7 @@ def category_choices(request):
 def product_choices(request):
     result = Product.objects.filter(Q(created_by=request.user) | Q(created_by=None)).values_list('id', 'name')
     return result
+
 
 class RegisterUserView(View):
     def get(self, request):
@@ -61,13 +62,34 @@ class LogoutView(View):
 
 class MainPageView(LoginRequiredMixin, View):
     def get(self, request):
+        form = TargetForm()
+        current_target = Target.objects.get(created_by=request.user, is_active=True)
         current_date = datetime.now().date()
         week_back = current_date - timedelta(days=7)
         meals = Meal.objects.filter(meal_date__gt=week_back, meal_date__lt=current_date)
+        today_meals = Meal.objects.filter(meal_date=current_date)
+        today_eaten = {'calories':0,
+                       'carbohydrates':0,
+                       'protein':0,
+                       'sugars':0,
+                       'salt':0,
+                       'fat':0}
+        for meal in today_meals:
+            today_eaten['calories'] += meal.calories
+            today_eaten['carbohydrates'] += meal.carbohydrates
+            today_eaten['protein'] += meal.protein
+            today_eaten['sugars'] += meal.sugars
+            today_eaten['salt'] += meal.salt
+            today_eaten['fat'] += meal.fat
+
         ctx = {
                'meals':meals,
                'current_date':current_date,
-               'week_back':week_back
+               'week_back':week_back,
+               'form':form,
+               'current_target':current_target,
+               'today_meals':today_meals,
+               'today_eaten':today_eaten
                }
         return render(request, 'manager/index.html', ctx)
 

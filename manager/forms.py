@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Meal, Quantity
+from .models import Meal, Quantity, Target
 
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Username'}))
@@ -23,3 +23,10 @@ class QuantityForm(ModelForm):
     class Meta:
         model = Quantity
         exclude = ['meal', 'product']
+
+
+class TargetForm(ModelForm):
+
+    class Meta:
+        model = Target
+        exclude = ['created_by', 'is_active']
