@@ -79,3 +79,14 @@ class Quantity(models.Model):
     meal = models.ForeignKey(Meal, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.FloatField()
+
+
+class Target(models.Model):
+    calories = models.FloatField(null=True)
+    carbohydrates = models.FloatField(null=True)
+    protein = models.FloatField(null=True)
+    sugars = models.FloatField(null=True)
+    salt = models.FloatField(null=True)
+    fat = models.FloatField(null=True)
+    is_active = models.BooleanField(default=False)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
