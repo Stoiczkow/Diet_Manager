@@ -4,11 +4,11 @@
 
 ## Functionalities
 > 1. Adding meals, products, categories of products
-  2. Setting limits of calories and macrocomponents for each day/ period of time
-  3. Applications should alert if current limit is exceeded
+> 2. Setting limits of calories and macrocomponents for each day/ period of time
+> 3. Applications should alert if current limit is exceeded
 
 ## Technologies
 > 1. Django
-  2. Bootstrap
-  3. JS
-  4. MySQL
+> 2. Bootstrap
+> 3. JS
+> 4. MySQL
