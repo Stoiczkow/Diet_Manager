@@ -93,6 +93,21 @@ class MainPageView(LoginRequiredMixin, View):
                }
         return render(request, 'manager/index.html', ctx)
 
+    def post(self, request):
+        current_target = Target.objects.get(created_by=request.user, is_active=True)
+        current_target.is_active = False
+        current_target.save()
+        new_target = Target.objects.create(calories=request.POST.get('calories'),
+                                           carbohydrates=request.POST.get('carbohydrates'),
+                                           protein=request.POST.get('protein'),
+                                           sugars=request.POST.get('sugars'),
+                                           salt=request.POST.get('salt'),
+                                           fat=request.POST.get('fat'),
+                                           is_active=True,
+                                           created_by=request.user)
+        new_target.save()
+        return HttpResponseRedirect('/index/')
+
 
 class AddMealView(LoginRequiredMixin, View):
     def get(self, request):
