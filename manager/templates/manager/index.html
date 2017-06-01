@@ -79,19 +79,41 @@
 
             <div class="container col-sm-3 pull-right">
                 <div class="list-group">
-                    <li class="list-group-item list-group-item-info">Current target</li>
+                    <li class="list-group-item list-group-item-info">Current target <span class="badge">
+                                    <a href="#" style="color: white; text-decoration: none;" data-toggle="modal" data-target="#myModal">
+                                        Change</a></span></li>
                     <li class="list-group-item "> Calories <span class="badge">{{ current_target.calories }} kcal</span></li>
                     <li class="list-group-item "> Carbohydrates <span class="badge">{{ current_target.carbohydrates }} g</span></li>
                     <li class="list-group-item "> Protein <span class="badge">{{ current_target.protein }} g</span></li>
                     <li class="list-group-item "> Sugars <span class="badge">{{ current_target.sugars }} g</span></li>
                     <li class="list-group-item "> Salt <span class="badge">{{ current_target.salt }} g</span></li>
                     <li class="list-group-item "> Fat <span class="badge">{{ current_target.fat }} g</span></li>
+                          <!-- Modal -->
+                    <div class="modal fade" id="myModal" role="dialog">
+                        <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Modal Header</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Some text in the modal.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <div class="container col-sm-3 pull-right">
                 <div class="list-group">
-                    <li class="list-group-item list-group-item-info">You've eaten</li>
+                    <li class="list-group-item list-group-item-info">You've eaten today</li>
                     {% if today_eaten.calories <= current_target.calories %}
                         <li class="list-group-item list-group-item-success"> Calories <span class="badge">{{ today_eaten.calories|floatformat:"2" }} kcal</span></li>
                     {% else %}
