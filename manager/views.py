@@ -90,7 +90,8 @@ class MainPageView(LoginRequiredMixin, View):
                'form':form,
                'current_target':current_target,
                'today_meals':today_meals,
-               'today_eaten':today_eaten
+               'today_eaten':today_eaten,
+               'all_targets':all_targets
                }
         return render(request, 'manager/index.html', ctx)
 
