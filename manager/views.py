@@ -68,6 +68,7 @@ class MainPageView(LoginRequiredMixin, View):
         week_back = current_date - timedelta(days=7)
         meals = Meal.objects.filter(meal_date__gt=week_back, meal_date__lt=current_date)
         today_meals = Meal.objects.filter(meal_date=current_date)
+        all_targets = Target.objects.all()
         today_eaten = {'calories':0,
                        'carbohydrates':0,
                        'protein':0,

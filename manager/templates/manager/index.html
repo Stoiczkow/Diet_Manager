@@ -99,11 +99,16 @@
                                     <center><h4 class="modal-title">Change current target</h4></center>
                                 </div>
                                 <div class="modal-body">
+                                    <center><h4>Enter values:</h4></center>
                                     <center><form method="POST" action="">
                                         {% csrf_token %}
                                         <p><table>
                                             {{ form.as_table }}
                                         </table></p>
+                                        <center><h4>or choose on of the previous targets:</h4></center>
+                                        {% for target in all_targtes %}
+                                            
+                                        {% endfor %}
                                         <p><button type="submit" class="btn btn-default" >Change current target</button></p>
                                     </form></center>
                                 </div>
