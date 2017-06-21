@@ -306,7 +306,8 @@ class ListMealView(LoginRequiredMixin, View):
 
 class EditProductView(LoginRequiredMixin, UpdateView):
     model = Product
-    fields = '__all__'
+    fields = ['name', 'description', 'calories', 'carbohydrates', 'protein', 'sugars', 'salt', 'fat', 'category']
+
     template_name_suffix = '_update_form'
 
     def get_form(self):

@@ -2,6 +2,7 @@ from django import forms
 from django.forms import ModelForm
 from .models import Meal, Quantity, Target
 
+
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Username'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'Password'}))
