@@ -233,6 +233,7 @@ class AddProductView(LoginRequiredMixin, CreateView):
         form.instance.created_by = self.request.user
         return super(AddProductView, self).form_valid(form)
 
+
 class AddCategoryView(LoginRequiredMixin, CreateView):
     model = Category
     fields = ['name']

@@ -109,7 +109,10 @@
                                         <p><center><h4>or choose one of the previous targets:</h4>
 
                                             {% for target in all_targets %}
-                                                <button type="button" class="btn btn-primary" title="Calories: {{ target.calories }}&#010;Carbohydrates: {{ target.carbohydrates }}&#010;Protein: {{ target.protein }}&#010;Sugars: {{ target.sugars }}&#010;Salt: {{ target.salt }}&#010;Fat: {{ target.fat }}">{{ target.target_date }}</button>
+                                                <button type="button" class="btn btn-primary targets"
+                                                        title="Calories: {{ target.calories }}&#010;Carbohydrates: {{ target.carbohydrates }}&#010;Protein: {{ target.protein }}&#010;Sugars: {{ target.sugars }}&#010;Salt: {{ target.salt }}&#010;Fat: {{ target.fat }}"
+                                                        data="{{target.calories}},{{target.carbohydrates}},{{target.protein}},{{target.sugars}},{{target.salt}},{{target.fat}}">
+                                                        {{ target.target_date }}</button>
                                             {% endfor %}
 
                                         </center></p>
