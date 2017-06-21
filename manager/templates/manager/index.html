@@ -106,8 +106,9 @@
                                         <p><table>
                                             {{ form.as_table }}
                                         </table></p>
-                                        <p><center><h4>or choose one of the previous targets:</h4>
-
+                                        <p><center>
+                                            <h4>or choose one of the previous targets:</h4>
+                                            <h6>(mouse over button to see all macrocomponents)</h6>
                                             {% for target in all_targets %}
                                                 <button type="button" class="btn btn-primary targets"
                                                         title="Calories: {{ target.calories }}&#010;Carbohydrates: {{ target.carbohydrates }}&#010;Protein: {{ target.protein }}&#010;Sugars: {{ target.sugars }}&#010;Salt: {{ target.salt }}&#010;Fat: {{ target.fat }}"
