@@ -169,6 +169,7 @@ class AddProductView(LoginRequiredMixin, CreateView):
 
     def get_form(self):
         form = super(AddProductView, self).get_form()
+
         form.fields['name'].widget = forms.TextInput(attrs={
             'class':'form-control',
             'placeholder':'Products name',
