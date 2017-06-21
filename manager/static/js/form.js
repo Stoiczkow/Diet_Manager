@@ -1,13 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
 	var optns = document.querySelectorAll("#id_product option")
 
-//	for(var i = 0; i < optns.length; i++){
-//	    optns[i].addEventListener("click", function(){
-//			this.classList.toggle('choosen')
-//		})
-//		console.log(optns[i])
-//	}
-
 	for(var i = 0; i < optns.length; i++){
 		optns[i].addEventListener("click", function(){
 		    var label = this.innerHTML;
@@ -23,8 +16,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 product.setAttribute('value', '');
                 product.querySelector('input').value = 0;
 
-            })
-		})
+            });
+		});
 
-	}
+	};
 });
