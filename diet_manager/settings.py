@@ -76,16 +76,14 @@ WSGI_APPLICATION = 'diet_manager.wsgi.application'
 
 DATABASES = {
     'default': {
-        'HOST': '127.0.0.1',
-        'NAME': 'diet_manager_db',
-        'ENGINE': 'mysql.connector.django',
-        'USER': 'root',
+        'NAME': 'dm',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'USER': 'pawel2',
         'PASSWORD': 'coderslab',
-        'OPTIONS': {
-            'autocommit': True,
-        },
+        'HOST': 'localhost'
     }
 }
+
 
 
 # Password validation

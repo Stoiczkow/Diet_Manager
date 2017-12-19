@@ -5,31 +5,48 @@
 <div class="container  col-sm-6">
     <div class="list-group">
         {% for product in products %}
-            <div class="panel-group">
-                <div class="panel panel-default">
-                    <div class="panel-heading ">
-                        <a data-toggle="collapse" href="#{{ product.pk }}" class="list-group-item">{{ product.name }}</a>
-                    </div>
-                    <div id="{{ product.pk }}" class="panel-collapse collapse">
-                        <ul class="list-group-item">
-                            <li class="list-group-item list-group-item-info">{{ product.description }}
-                                {% if product.created_by == request.user %}
-                                <span class="badge">
-                                    <a href="{% url 'delete_product' pk=product.pk %}" style="color: white; text-decoration: none;" >Delete</a></span>
-                                <span class="badge">
-                                    <a href="{% url 'edit_product' pk=product.pk %}" style="color: white; text-decoration: none;">Edit</a></span>
-                                {% endif %}
-                            </li>
-                            <li class="list-group-item list-group-item-success">Calories <span class="badge">{{ product.calories }} kcal</span></li>
-                            <li class="list-group-item list-group-item-success">Carbohydrates <span class="badge">{{ product.carbohydrates }} g</span></li>
-                            <li class="list-group-item list-group-item-success">Protein <span class="badge">{{ product.protein }} g</span></li>
-                            <li class="list-group-item list-group-item-success">Sugar <span class="badge">{{ product.sugars }} g</span></li>
-                            <li class="list-group-item list-group-item-success">Salt <span class="badge">{{ product.salt }} g</span></li>
-                            <li class="list-group-item list-group-item-success">Fat <span class="badge">{{ product.fat }} g</span></li>
-                        </ul>
-                    </div>
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading ">
+                    <a data-toggle="collapse" href="#{{ product.pk }}"
+                       class="list-group-item">{{ product.name }}</a>
+                </div>
+                <div id="{{ product.pk }}" class="panel-collapse collapse">
+                    <ul class="list-group-item">
+                        <li class="list-group-item list-group-item-info">{{
+                            product.description }}
+                            {% if product.created_by == request.user %}
+                            <span class="badge">
+                                    <a href="{% url 'delete_product' pk=product.pk %}"
+                                       style="color: white; text-decoration: none;">Delete</a></span>
+                            <span class="badge">
+                                    <a href="{% url 'edit_product' pk=product.pk %}"
+                                       style="color: white; text-decoration: none;">Edit</a></span>
+                            {% endif %}
+                        </li>
+                        <li class="list-group-item list-group-item-success">
+                            Calories <span class="badge">{{ product.calories }} kcal</span>
+                        </li>
+                        <li class="list-group-item list-group-item-success">
+                            Carbohydrates <span class="badge">{{ product.carbohydrates }} g</span>
+                        </li>
+                        <li class="list-group-item list-group-item-success">
+                            Protein <span
+                                class="badge">{{ product.protein }} g</span>
+                        </li>
+                        <li class="list-group-item list-group-item-success">
+                            Sugar <span
+                                class="badge">{{ product.sugars }} g</span>
+                        </li>
+                        <li class="list-group-item list-group-item-success">
+                            Salt <span
+                                class="badge">{{ product.salt }} g</span></li>
+                        <li class="list-group-item list-group-item-success">Fat
+                            <span class="badge">{{ product.fat }} g</span></li>
+                    </ul>
                 </div>
             </div>
+        </div>
         {% endfor %}
     </div>
 </div>

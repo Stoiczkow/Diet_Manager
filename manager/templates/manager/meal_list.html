@@ -6,42 +6,61 @@
 <div class="container  col-sm-6">
     <div class="list-group">
         {% for meal in meals %}
-            <div class="panel-group">
-                <div class="panel panel-default">
-                    <div class="panel-heading ">
-                        <a data-toggle="collapse" href="#{{ meal.pk }}" class="list-group-item">{{ meal }}
-                            <span class="badge">{{ meal.meal_date }}</span></a>
-                    </div>
-                    <div id="{{ meal.pk }}" class="panel-collapse collapse">
-                        <ul class="list-group-item">
-                            <li class="list-group-item list-group-item-info">
-                                Actions
-                                <span class="badge">
-                                    <a href="{% url 'delete_meal' pk=meal.pk %}" style="color: white; text-decoration: none;" >Delete</a></span>
-                            </li>
-                            <li class="list-group-item list-group-item-success">Calories <span class="badge">{{ meal.calories|floatformat:"2" }} kcal</span></li>
-                            <li class="list-group-item list-group-item-success">Carbohydrates <span class="badge">{{ meal.carbohydrates|floatformat:"2" }} g</span></li>
-                            <li class="list-group-item list-group-item-success">Protein <span class="badge">{{ meal.protein|floatformat:"2" }} g</span></li>
-                            <li class="list-group-item list-group-item-success">Sugars <span class="badge">{{ meal.sugars|floatformat:"2" }} g</span></li>
-                            <li class="list-group-item list-group-item-success">Salt <span class="badge">{{ meal.salt|floatformat:"2" }} g</span></li>
-                            <li class="list-group-item list-group-item-success">Fat <span class="badge">{{ meal.fat|floatformat:"2" }} g</span></li>
-                             <div class="panel-heading ">
-                                <a data-toggle="collapse" href="#{{ meal.pk }}{{ meal.name }}" class="list-group-item list-group-item-info">Products</a>
-                            </div>
-                            <div id="{{ meal.pk }}{{ meal.name }}" class="panel-collapse collapse">
-                                <ul class="list-group-item">
-                                    {% for product in products %}
-                                        {% if product.0 == meal.pk %}
-                                            <li class="list-group-item list-group-item-success">{{ product.1 }}
-                                                <span class="badge">{{ product.2 }} g</span></li>
-                                        {% endif %}
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                        </ul>
-                    </div>
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading ">
+                    <a data-toggle="collapse" href="#{{ meal.pk }}"
+                       class="list-group-item">{{ meal }}
+                        <span class="badge">{{ meal.meal_date }}</span></a>
+                </div>
+                <div id="{{ meal.pk }}" class="panel-collapse collapse">
+                    <ul class="list-group-item">
+                        <li class="list-group-item list-group-item-info">
+                            Actions
+                            <span class="badge">
+                                    <a href="{% url 'delete_meal' pk=meal.pk %}"
+                                       style="color: white; text-decoration: none;">Delete</a></span>
+                        </li>
+                        <li class="list-group-item list-group-item-success">
+                            Calories <span class="badge">{{ meal.calories|floatformat:"2" }} kcal</span>
+                        </li>
+                        <li class="list-group-item list-group-item-success">
+                            Carbohydrates <span class="badge">{{ meal.carbohydrates|floatformat:"2" }} g</span>
+                        </li>
+                        <li class="list-group-item list-group-item-success">
+                            Protein <span class="badge">{{ meal.protein|floatformat:"2" }} g</span>
+                        </li>
+                        <li class="list-group-item list-group-item-success">
+                            Sugars <span class="badge">{{ meal.sugars|floatformat:"2" }} g</span>
+                        </li>
+                        <li class="list-group-item list-group-item-success">
+                            Salt <span class="badge">{{ meal.salt|floatformat:"2" }} g</span>
+                        </li>
+                        <li class="list-group-item list-group-item-success">Fat
+                            <span class="badge">{{ meal.fat|floatformat:"2" }} g</span>
+                        </li>
+                        <div class="panel-heading ">
+                            <a data-toggle="collapse"
+                               href="#{{ meal.pk }}{{ meal.name }}"
+                               class="list-group-item list-group-item-info">Products</a>
+                        </div>
+                        <div id="{{ meal.pk }}{{ meal.name }}"
+                             class="panel-collapse collapse">
+                            <ul class="list-group-item">
+                                {% for product in products %}
+                                {% if product.0 == meal.pk %}
+                                <li class="list-group-item list-group-item-success">
+                                    {{ product.1 }}
+                                    <span class="badge">{{ product.2 }} g</span>
+                                </li>
+                                {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </ul>
                 </div>
             </div>
+        </div>
         {% endfor %}
     </div>
 </div>

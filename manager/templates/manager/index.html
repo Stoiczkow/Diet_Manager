@@ -2,186 +2,255 @@
 <!doctype html>
 
 <html>
-    <head>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        {% block scripts %}
-            <script src="{% static 'js/target.js' %}" type="text/javascript"></script>
-        {% endblock %}
-        <meta charset="utf-8">
-    </head>
-    <body background="{% static 'img/wood.jpg' %}">
-        <nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                  <a class="navbar-brand" href="#">Diet Manager</a>
-                </div>
-                {% if request.user.is_authenticated %}
-                <ul class="nav navbar-nav">
-                  <li class="active"><a href="{% url 'index' %}"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+<head>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    {% block scripts %}
+    <script src="{% static 'js/target.js' %}" type="text/javascript"></script>
+    {% endblock %}
+    <meta charset="utf-8">
+</head>
+<body background="{% static 'img/wood.jpg' %}">
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Diet Manager</a>
+        </div>
+        {% if request.user.is_authenticated %}
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="{% url 'index' %}"><span
+                    class="glyphicon glyphicon-home"></span> Home</a></li>
 
-                  <li class="dropdown">
-                      <a class="dropdown-toggle" data-toggle="dropdown" href="#">Meals
-                          <span class="caret"></span></a>
-                          <ul class="dropdown-menu">
-                              <li><a href="{% url 'list_meal' %}">All meals</a></li>
-                                <li><a href="{% url 'add_meal' %}">Add meal</a></li>
-                          </ul>
-                  </li>
-
-                  <li class="dropdown">
-                      <a class="dropdown-toggle" data-toggle="dropdown" href="#">Products
-                          <span class="caret"></span></a>
-                          <ul class="dropdown-menu">
-                              <li><a href="{% url 'list_product' %}">All products</a></li>
-                              <li><a href="{% url 'add_product' %}">Add product</a></li>
-                          </ul>
-                  </li>
-
-                  <li class="dropdown">
-                      <a class="dropdown-toggle" data-toggle="dropdown" href="#">Categories
-                          <span class="caret"></span></a>
-                          <ul class="dropdown-menu">
-                              <li><a href="{% url 'list_category' %}">All categories</a></li>
-                              <li><a href="{% url 'add_category' %}">Add category</a></li>
-                          </ul>
-                  </li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Meals
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'list_meal' %}">All meals</a></li>
+                    <li><a href="{% url 'add_meal' %}">Add meal</a></li>
                 </ul>
+            </li>
 
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"> {{ user }}
-                            <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                              <li><a href="{% url 'logout' %}">Logout</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                {% else %}
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="{% url 'register' %}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                        <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                    </ul>
-                {% endif %}
-            </div>
-        </nav>
-        <div class="container" style="margin-top:60px">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Products
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'list_product' %}">All products</a>
+                    </li>
+                    <li><a href="{% url 'add_product' %}">Add product</a></li>
+                </ul>
+            </li>
 
-            {% block content%}
-            <div class="container col-sm-4">
-                <div class="list-group">
-                    <li class="list-group-item list-group-item-info">Todays meals<span class="badge">{{ current_date }}</span></li>
-                    {% for meal in today_meals %}
-                        <li class="list-group-item "> {{ meal }} </li>
-                    {% endfor %}
-                </div>
-            </div>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Categories
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'list_category' %}">All categories</a>
+                    </li>
+                    <li><a href="{% url 'add_category' %}">Add category</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
 
-            <div class="container col-sm-3 pull-right">
-                <div class="list-group">
-                    <li class="list-group-item list-group-item-info">Current target <span class="badge">
-                                    <a href="#" style="color: white; text-decoration: none;" data-toggle="modal" data-target="#target_change">
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#"> {{
+                    user }}
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+        {% else %}
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="{% url 'register' %}"><span
+                    class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li><a href="{% url 'login' %}"><span
+                    class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+        {% endif %}
+    </div>
+</nav>
+<div class="container" style="margin-top:60px">
+
+    {% block content%}
+    <div class="container col-sm-4">
+        <div class="list-group">
+            <li class="list-group-item list-group-item-info">Todays meals<span
+                    class="badge">{{ current_date }}</span></li>
+            {% for meal in today_meals %}
+            <li class="list-group-item "> {{ meal }}</li>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="container col-sm-3 pull-right">
+        <div class="list-group">
+            <li class="list-group-item list-group-item-info">Current target
+                <span class="badge">
+                                    <a href="#"
+                                       style="color: white; text-decoration: none;"
+                                       data-toggle="modal"
+                                       data-target="#target_change">
                                         Change</a></span></li>
-                    <li class="list-group-item "> Calories <span class="badge">{{ current_target.calories }} kcal</span></li>
-                    <li class="list-group-item "> Carbohydrates <span class="badge">{{ current_target.carbohydrates }} g</span></li>
-                    <li class="list-group-item "> Protein <span class="badge">{{ current_target.protein }} g</span></li>
-                    <li class="list-group-item "> Sugars <span class="badge">{{ current_target.sugars }} g</span></li>
-                    <li class="list-group-item "> Salt <span class="badge">{{ current_target.salt }} g</span></li>
-                    <li class="list-group-item "> Fat <span class="badge">{{ current_target.fat }} g</span></li>
-                          <!-- Modal -->
-                    <div class="modal fade" id="target_change" role="dialog">
-                        <div class="modal-dialog">
+            <li class="list-group-item "> Calories <span class="badge">{{ current_target.calories }} kcal</span>
+            </li>
+            <li class="list-group-item "> Carbohydrates <span class="badge">{{ current_target.carbohydrates }} g</span>
+            </li>
+            <li class="list-group-item "> Protein <span class="badge">{{ current_target.protein }} g</span>
+            </li>
+            <li class="list-group-item "> Sugars <span class="badge">{{ current_target.sugars }} g</span>
+            </li>
+            <li class="list-group-item "> Salt <span class="badge">{{ current_target.salt }} g</span>
+            </li>
+            <li class="list-group-item "> Fat <span class="badge">{{ current_target.fat }} g</span>
+            </li>
+            <!-- Modal -->
+            <div class="modal fade" id="target_change" role="dialog">
+                <div class="modal-dialog">
 
-                        <!-- Modal content-->
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <center><h4 class="modal-title">Change current target</h4></center>
-                                </div>
-                                <div class="modal-body">
-                                    <center><h4>Enter values:</h4></center>
-                                    <center><form method="POST" action="">
-                                        {% csrf_token %}
-                                        <p><table>
-                                            {{ form.as_table }}
-                                        </table></p>
-                                        <p><center>
-                                            <h4>or choose one of the previous targets:</h4>
-                                            <h6>(mouse over button to see all macrocomponents)</h6>
-                                            {% for target in all_targets %}
-                                                <button type="button" class="btn btn-primary targets"
-                                                        title="Calories: {{ target.calories }}&#010;Carbohydrates: {{ target.carbohydrates }}&#010;Protein: {{ target.protein }}&#010;Sugars: {{ target.sugars }}&#010;Salt: {{ target.salt }}&#010;Fat: {{ target.fat }}"
-                                                        data="{{target.calories}},{{target.carbohydrates}},{{target.protein}},{{target.sugars}},{{target.salt}},{{target.fat}}">
-                                                        {{ target.calories }} kcal</button>
-                                            {% endfor %}
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close"
+                                    data-dismiss="modal">&times;
+                            </button>
+                            <center><h4 class="modal-title">Change current
+                                target</h4></center>
+                        </div>
+                        <div class="modal-body">
+                            <center><h4>Enter values:</h4></center>
+                            <center>
+                                <form method="POST" action="">
+                                    {% csrf_token %}
+                                    <p>
+                                    <table>
+                                        {{ form.as_table }}
+                                    </table>
+                                    </p>
+                                    <p>
+                                    <center>
+                                        <h4>or choose one of the previous
+                                            targets:</h4>
+                                        <h6>(mouse over button to see all
+                                            macrocomponents)</h6>
+                                        {% for target in all_targets %}
+                                        <button type="button"
+                                                class="btn btn-primary targets"
+                                                title="Calories: {{ target.calories }}&#010;Carbohydrates: {{ target.carbohydrates }}&#010;Protein: {{ target.protein }}&#010;Sugars: {{ target.sugars }}&#010;Salt: {{ target.salt }}&#010;Fat: {{ target.fat }}"
+                                                data="{{target.calories}},{{target.carbohydrates}},{{target.protein}},{{target.sugars}},{{target.salt}},{{target.fat}}">
+                                            {{ target.calories }} kcal
+                                        </button>
+                                        {% endfor %}
 
-                                        </center></p>
-                                        <p><button type="submit" class="btn btn-default" >Change current target</button></p>
-                                    </form></center>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                </div>
-                            </div>
-
+                                    </center>
+                                    </p>
+                                    <p>
+                                        <button type="submit"
+                                                class="btn btn-default">Change
+                                            current target
+                                        </button>
+                                    </p>
+                                </form>
+                            </center>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default"
+                                    data-dismiss="modal">Cancel
+                            </button>
                         </div>
                     </div>
+
                 </div>
             </div>
-
-            <div class="container col-sm-3 pull-right">
-                <div class="list-group">
-                    <li class="list-group-item list-group-item-info">You've eaten today</li>
-                    {% if today_eaten.calories <= current_target.calories %}
-                        <li class="list-group-item list-group-item-success"> Calories <span class="badge">{{ today_eaten.calories|floatformat:"2" }} kcal</span></li>
-                    {% else %}
-                        <li class="list-group-item list-group-item-danger"> Calories <span class="badge">{{ today_eaten.calories|floatformat:"2" }} kcal</span></li>
-                    {% endif %}
-
-                    {% if today_eaten.carbohydrates <= current_target.carbohydrates %}
-                        <li class="list-group-item list-group-item-success"> Carbohydrates <span class="badge">{{ today_eaten.carbohydrates|floatformat:"2" }} g</span></li>
-                    {% else %}
-                        <li class="list-group-item list-group-item-danger"> Carbohydrates <span class="badge">{{ today_eaten.carbohydrates|floatformat:"2" }} g</span></li>
-                    {% endif %}
-
-                    {% if today_eaten.protein <= current_target.protein %}
-                        <li class="list-group-item list-group-item-success"> Protein <span class="badge">{{ today_eaten.protein|floatformat:"2" }} g</span></li>
-                    {% else %}
-                        <li class="list-group-item list-group-item-danger"> Protein <span class="badge">{{ today_eaten.protein|floatformat:"2" }} g</span></li>
-                    {% endif %}
-
-                    {% if today_eaten.sugars <= current_target.sugars %}
-                        <li class="list-group-item list-group-item-success"> Sugars <span class="badge">{{ today_eaten.sugars|floatformat:"2" }} g</span></li>
-                    {% else %}
-                        <li class="list-group-item list-group-item-danger"> Sugars <span class="badge">{{ today_eaten.sugars|floatformat:"2" }} g</span></li>
-                    {% endif %}
-
-                    {% if today_eaten.salt <= current_target.salt %}
-                        <li class="list-group-item list-group-item-success"> Salt <span class="badge">{{ today_eaten.salt|floatformat:"2" }} g</span></li>
-                    {% else %}
-                        <li class="list-group-item list-group-item-danger"> Salt <span class="badge">{{ today_eaten.salt|floatformat:"2" }} g</span></li>
-                    {% endif %}
-
-                    {% if today_eaten.fat <= current_target.fat %}
-                        <li class="list-group-item list-group-item-success"> Fat <span class="badge">{{ today_eaten.fat|floatformat:"2" }} g</span></li>
-                    {% else %}
-                        <li class="list-group-item list-group-item-danger"> Fat <span class="badge">{{ today_eaten.fat|floatformat:"2" }} g</span></li>
-                    {% endif %}
-                </div>
-            </div>
-
-            <div class="container col-sm-4">
-                <div class="list-group">
-                    <li class="list-group-item list-group-item-info">Last week meals<span class="badge">{{ week_back }} - {{ current_date }}</span></li>
-                    {% for meal in meals %}
-                        <li class="list-group-item "> {{ meal }} <span class="badge">{{ meal.meal_date }}</span></li>
-                    {% endfor %}
-                </div>
-            </div>
-            {% endblock %}
-
         </div>
-    </body>
+    </div>
+
+    <div class="container col-sm-3 pull-right">
+        <div class="list-group">
+            <li class="list-group-item list-group-item-info">You've eaten
+                today
+            </li>
+            {% if today_eaten.calories <= current_target.calories %}
+            <li class="list-group-item list-group-item-success"> Calories <span
+                    class="badge">{{ today_eaten.calories|floatformat:"2" }} kcal</span>
+            </li>
+            {% else %}
+            <li class="list-group-item list-group-item-danger"> Calories <span
+                    class="badge">{{ today_eaten.calories|floatformat:"2" }} kcal</span>
+            </li>
+            {% endif %}
+
+            {% if today_eaten.carbohydrates <= current_target.carbohydrates %}
+            <li class="list-group-item list-group-item-success"> Carbohydrates
+                <span class="badge">{{ today_eaten.carbohydrates|floatformat:"2" }} g</span>
+            </li>
+            {% else %}
+            <li class="list-group-item list-group-item-danger"> Carbohydrates
+                <span class="badge">{{ today_eaten.carbohydrates|floatformat:"2" }} g</span>
+            </li>
+            {% endif %}
+
+            {% if today_eaten.protein <= current_target.protein %}
+            <li class="list-group-item list-group-item-success"> Protein <span
+                    class="badge">{{ today_eaten.protein|floatformat:"2" }} g</span>
+            </li>
+            {% else %}
+            <li class="list-group-item list-group-item-danger"> Protein <span
+                    class="badge">{{ today_eaten.protein|floatformat:"2" }} g</span>
+            </li>
+            {% endif %}
+
+            {% if today_eaten.sugars <= current_target.sugars %}
+            <li class="list-group-item list-group-item-success"> Sugars <span
+                    class="badge">{{ today_eaten.sugars|floatformat:"2" }} g</span>
+            </li>
+            {% else %}
+            <li class="list-group-item list-group-item-danger"> Sugars <span
+                    class="badge">{{ today_eaten.sugars|floatformat:"2" }} g</span>
+            </li>
+            {% endif %}
+
+            {% if today_eaten.salt <= current_target.salt %}
+            <li class="list-group-item list-group-item-success"> Salt <span
+                    class="badge">{{ today_eaten.salt|floatformat:"2" }} g</span>
+            </li>
+            {% else %}
+            <li class="list-group-item list-group-item-danger"> Salt <span
+                    class="badge">{{ today_eaten.salt|floatformat:"2" }} g</span>
+            </li>
+            {% endif %}
+
+            {% if today_eaten.fat <= current_target.fat %}
+            <li class="list-group-item list-group-item-success"> Fat <span
+                    class="badge">{{ today_eaten.fat|floatformat:"2" }} g</span>
+            </li>
+            {% else %}
+            <li class="list-group-item list-group-item-danger"> Fat <span
+                    class="badge">{{ today_eaten.fat|floatformat:"2" }} g</span>
+            </li>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="container col-sm-4">
+        <div class="list-group">
+            <li class="list-group-item list-group-item-info">Last week
+                meals<span
+                        class="badge">{{ week_back }} - {{ current_date }}</span>
+            </li>
+            {% for meal in meals %}
+            <li class="list-group-item "> {{ meal }} <span class="badge">{{ meal.meal_date }}</span>
+            </li>
+            {% endfor %}
+        </div>
+    </div>
+    {% endblock %}
+
+</div>
+</body>
 
 </html>

@@ -12,13 +12,19 @@ from django import forms
 from django.db.models import Q
 from datetime import datetime, timedelta
 
+
 # Create your views here.
 def category_choices(request):
-    result = Category.objects.filter(Q(created_by=request.user) | Q(created_by=None)).values_list('id', 'name')
+    result = Category.objects.filter(
+        Q(created_by=request.user) | Q(created_by=None)).values_list('id',
+                                                                     'name')
     return result
 
+
 def product_choices(request):
-    result = Product.objects.filter(Q(created_by=request.user) | Q(created_by=None)).values_list('id', 'name')
+    result = Product.objects.filter(
+        Q(created_by=request.user) | Q(created_by=None)).values_list('id',
+                                                                     'name')
     return result
 
 
@@ -29,7 +35,9 @@ class RegisterUserView(View):
         return render(request, 'manager/register.html', ctx)
 
     def post(self, request):
-        User.objects.create_user(username=request.POST['username'], email=request.POST['email'], password=request.POST['password'])
+        User.objects.create_user(username=request.POST['username'],
+                                 email=request.POST['email'],
+                                 password=request.POST['password'])
         ctx = {"success": "Użytkownik dodany!"}
         return render(request, 'manager/index.html', ctx)
 
@@ -37,7 +45,7 @@ class RegisterUserView(View):
 class LoginView(View):
     def get(self, request):
         form = LoginForm()
-        ctx = {'form':form}
+        ctx = {'form': form}
         return render(request, 'manager/login.html', ctx)
 
     def post(self, request):
@@ -63,23 +71,26 @@ class LogoutView(View):
 class MainPageView(LoginRequiredMixin, View):
     def get(self, request):
         form = TargetForm()
-        current_target = Target.objects.get(created_by=request.user, is_active=True)
+        current_target = Target.objects.get(created_by=request.user,
+                                            is_active=True)
         current_date = datetime.now().date()
         week_back = current_date - timedelta(days=7)
-        meals = Meal.objects.filter(meal_date__gt=week_back, meal_date__lt=current_date)
+        meals = Meal.objects.filter(meal_date__gt=week_back,
+                                    meal_date__lt=current_date)
         today_meals = Meal.objects.filter(meal_date=current_date)
-        all_targets = Target.objects.filter(created_by=request.user).values('calories',
-                                                                            'carbohydrates',
-                                                                            'protein',
-                                                                            'sugars',
-                                                                            'salt',
-                                                                            'fat').distinct()
-        today_eaten = {'calories':0,
-                       'carbohydrates':0,
-                       'protein':0,
-                       'sugars':0,
-                       'salt':0,
-                       'fat':0}
+        all_targets = Target.objects.filter(created_by=request.user).values(
+            'calories',
+            'carbohydrates',
+            'protein',
+            'sugars',
+            'salt',
+            'fat').distinct()
+        today_eaten = {'calories': 0,
+                       'carbohydrates': 0,
+                       'protein': 0,
+                       'sugars': 0,
+                       'salt': 0,
+                       'fat': 0}
         for meal in today_meals:
             today_eaten['calories'] += meal.calories
             today_eaten['carbohydrates'] += meal.carbohydrates
@@ -89,30 +100,32 @@ class MainPageView(LoginRequiredMixin, View):
             today_eaten['fat'] += meal.fat
 
         ctx = {
-               'meals':meals,
-               'current_date':current_date,
-               'week_back':week_back,
-               'form':form,
-               'current_target':current_target,
-               'today_meals':today_meals,
-               'today_eaten':today_eaten,
-               'all_targets':all_targets
-               }
+            'meals': meals,
+            'current_date': current_date,
+            'week_back': week_back,
+            'form': form,
+            'current_target': current_target,
+            'today_meals': today_meals,
+            'today_eaten': today_eaten,
+            'all_targets': all_targets
+        }
         return render(request, 'manager/index.html', ctx)
 
     def post(self, request):
-        current_target = Target.objects.get(created_by=request.user, is_active=True)
+        current_target = Target.objects.get(created_by=request.user,
+                                            is_active=True)
         current_target.is_active = False
         current_target.save()
-        new_target = Target.objects.create(calories=request.POST.get('calories'),
-                                           carbohydrates=request.POST.get('carbohydrates'),
-                                           protein=request.POST.get('protein'),
-                                           sugars=request.POST.get('sugars'),
-                                           salt=request.POST.get('salt'),
-                                           fat=request.POST.get('fat'),
-                                           is_active=True,
-                                           created_by=request.user,
-                                           target_date=datetime.now().date())
+        new_target = Target.objects.create(
+            calories=request.POST.get('calories'),
+            carbohydrates=request.POST.get('carbohydrates'),
+            protein=request.POST.get('protein'),
+            sugars=request.POST.get('sugars'),
+            salt=request.POST.get('salt'),
+            fat=request.POST.get('fat'),
+            is_active=True,
+            created_by=request.user,
+            target_date=datetime.now().date())
         new_target.save()
         return HttpResponseRedirect('/index/')
 
@@ -120,12 +133,17 @@ class MainPageView(LoginRequiredMixin, View):
 class AddMealView(LoginRequiredMixin, View):
     def get(self, request):
         form = MealForm()
-        form.fields['meal_date'].widget = forms.DateInput(attrs={'class':'form-control', 'type':'date', 'placeholder':'Meal date'})
-        form.fields['name'].widget = forms.Select(attrs={'class': 'form-control'}, choices=MEAL_NAME)
-        form.fields['product'].widget = forms.SelectMultiple(attrs={'class': 'form-control'}, choices=product_choices(self.request))
+        form.fields['meal_date'].widget = forms.DateInput(
+            attrs={'class': 'form-control', 'type': 'date',
+                   'placeholder': 'Meal date'})
+        form.fields['name'].widget = forms.Select(
+            attrs={'class': 'form-control'}, choices=MEAL_NAME)
+        form.fields['product'].widget = forms.SelectMultiple(
+            attrs={'class': 'form-control'},
+            choices=product_choices(self.request))
 
         ctx = {
-            'form':form,
+            'form': form,
         }
         return render(request, 'manager/meal_form.html', ctx)
 
@@ -141,18 +159,21 @@ class AddMealView(LoginRequiredMixin, View):
         sugars = 0.0
         salt = 0.0
         fat = 0.0
-        new_meal = Meal.objects.create(name=meal_name, meal_date=meal_date, created_by=meal_user)
+        new_meal = Meal.objects.create(name=meal_name, meal_date=meal_date,
+                                       created_by=meal_user)
         for product in products:
             quan = int(request.POST.get(str(product.name)))
             if quan != 0:
-                Quantity.objects.create(quantity=quan, meal = new_meal, product = product)
+                Quantity.objects.create(quantity=quan, meal=new_meal,
+                                        product=product)
                 calories += (product.calories * quan) / 100
                 carbohydrates += (product.carbohydrates * quan) / 100
                 protein += (product.protein * quan) / 100
                 sugars += (product.sugars * quan) / 100
                 salt += (product.salt * quan) / 100
                 fat += (product.fat * quan) / 100
-                meal_products[str(product.name)] = request.POST.get(str(product.name))
+                meal_products[str(product.name)] = request.POST.get(
+                    str(product.name))
         new_meal.calories = calories
         new_meal.carbohydrates = carbohydrates
         new_meal.protein = protein
@@ -165,74 +186,77 @@ class AddMealView(LoginRequiredMixin, View):
 
 class AddProductView(LoginRequiredMixin, CreateView):
     model = Product
-    fields = ['name', 'description', 'calories', 'carbohydrates', 'protein', 'sugars', 'salt', 'fat', 'category']
+    fields = ['name', 'description', 'calories', 'carbohydrates', 'protein',
+              'sugars', 'salt', 'fat', 'category']
 
     def get_form(self):
         form = super(AddProductView, self).get_form()
 
         form.fields['name'].widget = forms.TextInput(attrs={
-            'class':'form-control',
-            'placeholder':'Products name',
-            'title':"Products name",
-            'data - toggle':"popover",
-            'data - trigger':"hover"
+            'class': 'form-control',
+            'placeholder': 'Products name',
+            'title': "Products name",
+            'data - toggle': "popover",
+            'data - trigger': "hover"
         })
         form.fields['description'].widget = forms.TextInput(attrs={
             'class': 'form-control',
             'placeholder': 'Description of a product',
-            'title':"Products description",
-            'data - toggle':"popover",
-            'data - trigger':"hover"
+            'title': "Products description",
+            'data - toggle': "popover",
+            'data - trigger': "hover"
         })
         form.fields['calories'].widget = forms.NumberInput(attrs={
             'class': 'form-control',
             'placeholder': 'Calories in 100g/100ml',
-            'title':"Calories in 100g/100ml",
-            'data - toggle':"popover",
-            'data - trigger':"hover",
-            'step':'0.1'
+            'title': "Calories in 100g/100ml",
+            'data - toggle': "popover",
+            'data - trigger': "hover",
+            'step': '0.1'
         })
         form.fields['carbohydrates'].widget = forms.NumberInput(attrs={
             'class': 'form-control',
             'placeholder': 'Carbohydrates in 100g/100ml',
-            'title':"Carbohydrates in 100g/100ml",
-            'data - toggle':"popover",
-            'data - trigger':"hover",
+            'title': "Carbohydrates in 100g/100ml",
+            'data - toggle': "popover",
+            'data - trigger': "hover",
             'step': '0.1'
         })
         form.fields['protein'].widget = forms.NumberInput(attrs={
             'class': 'form-control',
-            'placeholder':'Protein in 100g/100ml',
-            'title':"Protein in 100g/100ml",
-            'data - toggle':"popover",
-            'data - trigger':"hover",
+            'placeholder': 'Protein in 100g/100ml',
+            'title': "Protein in 100g/100ml",
+            'data - toggle': "popover",
+            'data - trigger': "hover",
             'step': '0.1'
         })
         form.fields['sugars'].widget = forms.NumberInput(attrs={
             'class': 'form-control',
             'placeholder': 'Sugars in 100g/100ml',
-            'title':"Sugars in 100g/100ml",
-            'data - toggle':"popover",
-            'data - trigger':"hover",
+            'title': "Sugars in 100g/100ml",
+            'data - toggle': "popover",
+            'data - trigger': "hover",
             'step': '0.1'
         })
         form.fields['salt'].widget = forms.NumberInput(attrs={
             'class': 'form-control',
             'placeholder': 'Salt in 100g/100ml',
-            'title':"Salt in 100g/100ml",
-            'data - toggle':"popover",
-            'data - trigger':"hover",
+            'title': "Salt in 100g/100ml",
+            'data - toggle': "popover",
+            'data - trigger': "hover",
             'step': '0.1'
         })
         form.fields['fat'].widget = forms.NumberInput(attrs={
             'class': 'form-control',
             'placeholder': 'Fat in 100g/100ml',
-            'title':"Fat in 100g/100ml",
-            'data - toggle':"popover",
-            'data - trigger':"hover",
+            'title': "Fat in 100g/100ml",
+            'data - toggle': "popover",
+            'data - trigger': "hover",
             'step': '0.1'
         })
-        form.fields['category'].widget = forms.SelectMultiple(attrs={'class': 'form-control'}, choices=category_choices(self.request))
+        form.fields['category'].widget = forms.SelectMultiple(
+            attrs={'class': 'form-control'},
+            choices=category_choices(self.request))
         return form
 
     def form_valid(self, form):
@@ -246,7 +270,8 @@ class AddCategoryView(LoginRequiredMixin, CreateView):
 
     def get_form(self):
         form = super(AddCategoryView, self).get_form()
-        form.fields['name'].widget = forms.TextInput(attrs={'class':'form-control', 'placeholder':'Category name'})
+        form.fields['name'].widget = forms.TextInput(
+            attrs={'class': 'form-control', 'placeholder': 'Category name'})
         return form
 
     def form_valid(self, form):
@@ -256,21 +281,25 @@ class AddCategoryView(LoginRequiredMixin, CreateView):
 
 class ListCategoryView(LoginRequiredMixin, View):
     def get(self, request):
-        categories = Category.objects.filter(Q(created_by=request.user) | Q(created_by=None))
+        categories = Category.objects.filter(
+            Q(created_by=request.user) | Q(created_by=None))
         products = {}
         for category in categories:
-            products[str(category.name)] = Product.objects.filter(category=category)
+            products[str(category.name)] = Product.objects.filter(
+                category=category)
         ctx = {
-            'categories':categories,
-            'products':products
-               }
+            'categories': categories,
+            'products': products
+        }
         return render(request, 'manager/category_list.html', ctx)
 
     def post(self, request):
-        categories = Category.objects.filter(Q(created_by=request.user) | Q(created_by=None))
+        categories = Category.objects.filter(
+            Q(created_by=request.user) | Q(created_by=None))
         products = {}
         for category in categories:
-            products[str(category.name)] = Product.objects.filter(category=category)
+            products[str(category.name)] = Product.objects.filter(
+                category=category)
         ctx = {
             'categories': categories,
             'products': products
@@ -280,16 +309,18 @@ class ListCategoryView(LoginRequiredMixin, View):
 
 class ListProductView(LoginRequiredMixin, View):
     def get(self, request):
-        products = Product.objects.filter(Q(created_by=request.user) | Q(created_by=None))
+        products = Product.objects.filter(
+            Q(created_by=request.user) | Q(created_by=None))
         ctx = {
-            'products':products
+            'products': products
         }
         return render(request, 'manager/product_list.html', ctx)
 
 
 class ListMealView(LoginRequiredMixin, View):
     def get(self, request):
-        meals = Meal.objects.filter(created_by=request.user).order_by('-meal_date')
+        meals = Meal.objects.filter(created_by=request.user).order_by(
+            '-meal_date')
         quantity = Quantity.objects.all()
         products = []
         for meal in meals:
@@ -298,67 +329,70 @@ class ListMealView(LoginRequiredMixin, View):
                     products.append([meal.pk, quan.product, quan.quantity])
 
         ctx = {
-            'meals':meals,
-            'products':products,
-               }
+            'meals': meals,
+            'products': products,
+        }
         return render(request, 'manager/meal_list.html', ctx)
 
 
 class EditProductView(LoginRequiredMixin, UpdateView):
     model = Product
-    fields = ['name', 'description', 'calories', 'carbohydrates', 'protein', 'sugars', 'salt', 'fat', 'category']
+    fields = ['name', 'description', 'calories', 'carbohydrates', 'protein',
+              'sugars', 'salt', 'fat', 'category']
 
     template_name_suffix = '_update_form'
 
     def get_form(self):
         form = super(EditProductView, self).get_form()
         form.fields['name'].widget = forms.TextInput(attrs={
-            'class':'form-control',
-            'placeholder':'Products name',
-            'title':"Products name",
+            'class': 'form-control',
+            'placeholder': 'Products name',
+            'title': "Products name",
         })
         form.fields['description'].widget = forms.TextInput(attrs={
             'class': 'form-control',
             'placeholder': 'Description of a product',
-            'title':"Products description",
+            'title': "Products description",
         })
         form.fields['calories'].widget = forms.NumberInput(attrs={
             'class': 'form-control',
             'placeholder': 'Calories in 100g/100ml',
-            'title':"Calories in 100g/100ml",
-            'step':'0.1'
+            'title': "Calories in 100g/100ml",
+            'step': '0.1'
         })
         form.fields['carbohydrates'].widget = forms.NumberInput(attrs={
             'class': 'form-control',
             'placeholder': 'Carbohydrates in 100g/100ml',
-            'title':"Carbohydrates in 100g/100ml",
+            'title': "Carbohydrates in 100g/100ml",
             'step': '0.1'
         })
         form.fields['protein'].widget = forms.NumberInput(attrs={
             'class': 'form-control',
-            'placeholder':'Protein in 100g/100ml',
-            'title':"Protein in 100g/100ml",
+            'placeholder': 'Protein in 100g/100ml',
+            'title': "Protein in 100g/100ml",
             'step': '0.1'
         })
         form.fields['sugars'].widget = forms.NumberInput(attrs={
             'class': 'form-control',
             'placeholder': 'Sugars in 100g/100ml',
-            'title':"Sugars in 100g/100ml",
+            'title': "Sugars in 100g/100ml",
             'step': '0.1'
         })
         form.fields['salt'].widget = forms.NumberInput(attrs={
             'class': 'form-control',
             'placeholder': 'Salt in 100g/100ml',
-            'title':"Salt in 100g/100ml",
+            'title': "Salt in 100g/100ml",
             'step': '0.1'
         })
         form.fields['fat'].widget = forms.NumberInput(attrs={
             'class': 'form-control',
             'placeholder': 'Fat in 100g/100ml',
-            'title':"Fat in 100g/100ml",
+            'title': "Fat in 100g/100ml",
             'step': '0.1'
         })
-        form.fields['category'].widget = forms.SelectMultiple(attrs={'class': 'form-control'}, choices=category_choices(self.request))
+        form.fields['category'].widget = forms.SelectMultiple(
+            attrs={'class': 'form-control'},
+            choices=category_choices(self.request))
         return form
 
 

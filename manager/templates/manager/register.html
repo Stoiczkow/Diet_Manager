@@ -1,20 +1,31 @@
 {% extends 'manager/index.html' %}
 
 {% block content %}
-<center><form method="POST">
-    {% csrf_token %}
-        <p><div class="input-group col-sm-6">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+<center>
+    <form method="POST">
+        {% csrf_token %}
+        <p>
+        <div class="input-group col-sm-6">
+            <span class="input-group-addon"><i
+                    class="glyphicon glyphicon-user"></i></span>
             {{ form.username }}
-        </div></p>
-        <p><div class="input-group col-sm-6">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+        </div>
+        </p>
+        <p>
+        <div class="input-group col-sm-6">
+            <span class="input-group-addon"><i
+                    class="glyphicon glyphicon-lock"></i></span>
             {{ form.password }}
-        </div></p>
-        <p><div class="input-group col-sm-6">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+        </div>
+        </p>
+        <p>
+        <div class="input-group col-sm-6">
+            <span class="input-group-addon"><i
+                    class="glyphicon glyphicon-envelope"></i></span>
             {{ form.email }}
-        </div></p>
-    <input type="submit" class="btn btn-default" value="Register">
-</form></center>
+        </div>
+        </p>
+        <input type="submit" class="btn btn-default" value="Register">
+    </form>
+</center>
 {% endblock %}
