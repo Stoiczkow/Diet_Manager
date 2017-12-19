@@ -71,8 +71,11 @@ class LogoutView(View):
 class MainPageView(LoginRequiredMixin, View):
     def get(self, request):
         form = TargetForm()
-        current_target = Target.objects.get(created_by=request.user,
-                                            is_active=True)
+        try:
+            current_target = Target.objects.get(created_by=request.user,
+                                                is_active=True)
+        except:
+            current_target = None
         current_date = datetime.now().date()
         week_back = current_date - timedelta(days=7)
         meals = Meal.objects.filter(meal_date__gt=week_back,
