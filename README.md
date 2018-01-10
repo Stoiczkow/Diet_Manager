@@ -1,5 +1,6 @@
 # Diet Manager
-> Visit Diet Manager here: http://159.89.186.220
+> Visit Diet Manager here: http://159.89.186.220/login
+
 > Purpose of this project is to create simple, personal diet manager.
 
 ## Functionalities
