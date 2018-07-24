@@ -115,10 +115,14 @@ class MainPageView(LoginRequiredMixin, View):
         return render(request, 'manager/index.html', ctx)
 
     def post(self, request):
-        current_target = Target.objects.get(created_by=request.user,
-                                            is_active=True)
-        current_target.is_active = False
-        current_target.save()
+        try:
+            current_target = Target.objects.get(created_by=request.user,
+                                                is_active=True)
+            current_target.is_active = False
+            current_target.save()
+        except:
+            pass
+
         new_target = Target.objects.create(
             calories=request.POST.get('calories'),
             carbohydrates=request.POST.get('carbohydrates'),

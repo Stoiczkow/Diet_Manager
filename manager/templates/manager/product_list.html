@@ -13,8 +13,7 @@
                 </div>
                 <div id="{{ product.pk }}" class="panel-collapse collapse">
                     <ul class="list-group-item">
-                        <li class="list-group-item list-group-item-info">{{
-                            product.description }}
+                        <li class="list-group-item list-group-item-info">{{ product.description }}
                             {% if product.created_by == request.user %}
                             <span class="badge">
                                     <a href="{% url 'delete_product' pk=product.pk %}"
